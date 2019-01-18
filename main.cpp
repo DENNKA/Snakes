@@ -27,7 +27,6 @@ using namespace sf;
 
 const short Size=20,Size2=1; //size squares
 const short hmap=25,wmap=40; //size map
-const short timedelay=1;//100
 
 
 
@@ -35,7 +34,7 @@ class Game{
     public:
     Game(){
 
-        window =new sf::RenderWindow(VideoMode::getDesktopMode(), "shake");
+        window =new sf::RenderWindow(sf::VideoMode(1000, 700), "shake");
 
     }
 
@@ -204,8 +203,8 @@ class Shakescntrl{
                 if (shakes[i].getdivision()){//деление
                     shakes.resize(shakes[0].getshakecounter()+1);
 
-                    shakes[i+1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
-                    shakes[i+1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
+                    shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
+                    shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
 
 
                     /*for (int i=(shakes[i].getshakesize()-2);i>5;i--){
@@ -233,6 +232,10 @@ short Shake::shakecounter=0;
 
 int main()
 {
+    int timedelay;
+    std::cout<<"Enter time delay "<<std::endl;
+    std::cin>>timedelay;
+
     srand(time(NULL));
     std::string Map [hmap+5] = {
 	"0000000000000000000000000000000000000000",
