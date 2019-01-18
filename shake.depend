@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1547812837 source:d:\denis\code\shake\main.cpp
+1547823487 source:d:\denis\code\shake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>
