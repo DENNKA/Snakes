@@ -60,7 +60,8 @@ public:
     x=sx; y=sy;
     shakeid=shakecounter;
     shakecounter++;
-    shaketail.resize(shakesize-1);
+    //shaketail.resize(shakesize-1);
+    shaketail.resize(50);
 }
 
 
@@ -88,12 +89,12 @@ public:
     void divisionsuccess(){
         shakesize-=5;
         division=0;
-        shaketail.erase(shaketail.end()-5,shaketail.end());
+        //shaketail.erase(shaketail.end()-5,shaketail.end());
     }
 
 
     void addtail(std::vector<c> &shaketail){
-        shaketail.resize(shaketail.size()+1);
+        //shaketail.resize(shaketail.size()+1);
         shakesize++;
     }
 
@@ -197,7 +198,7 @@ class Shakescntrl{
                 shakes[i].update(Map);
 
                 if (shakes[i].getdivision()){//деление
-                    //shakes.resize(shakes[0].getshakecounter()+1);
+                    shakes.resize(shakes[0].getshakecounter()+1);
 
                     /*shakes[i+1].x=shakes[i].getshaketailx(shakes[i].getshakesize()-2);
                     shakes[i+1].y=shakes[i].getshaketaily(shakes[i].getshakesize()-2);
@@ -210,7 +211,7 @@ class Shakescntrl{
                         //std::cout<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
                         Map[shakes[i+1].shaketail[i].y][shakes[i+1].shaketail[i].x]='s'; //error sigsegv
                     }*/
-                    //shakes[i].divisionsuccess();
+                    shakes[i].divisionsuccess();
                 }
             }
             else{
