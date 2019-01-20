@@ -107,17 +107,21 @@ public:
         for (int i=0;i<7;i++){
             for (int j=0;j<7;j++){
                 if ((y-3+i)>=0&&(x-3+j)>=0){    //тут вроде баг
-                    if (Map[y-3+i][x-3+j] == 'f'){
-                        up+=foodup[i][j];
-                        down+=fooddown[i][j];
-                        left+=foodleft[i][j];
-                        right+=foodright[i][j];
-                    }
-                    if (Map[y-3+i][x-3+j] == '0'||Map[y-3+i][x-3+j] == 's'){
-                        up-=wallup[i][j];
-                        down-=walldown[i][j];
-                        left-=wallleft[i][j];
-                        right-=wallright[i][j];
+                    switch (Map[y-3+i][x-3+j]){
+                        case 'f':
+                        case 'd':
+                            up+=foodup[i][j];
+                            down+=fooddown[i][j];
+                            left+=foodleft[i][j];
+                            right+=foodright[i][j];
+                            break;
+                        case '0':
+                        case 's':
+                            up-=wallup[i][j];
+                            down-=walldown[i][j];
+                            left-=wallleft[i][j];
+                            right-=wallright[i][j];
+                            break;
                     }
                 }
             }
@@ -137,12 +141,13 @@ public:
             case '0':
             case 's':
                 live=false;
-                break;
+            break;
+            case 'd':
             case 'f':
                 saturation++;
-                break;
             default:
                 Map[y][x]='s';
+                break;
         }
 
         up=0;down=0;left=0;right=0;
@@ -182,6 +187,13 @@ public:
         std::clog<<std::endl;
     }
 
+    void fillshake(std::string *Map,char smbl){
+        //Map[y][x]=smbl;
+        for (unsigned int i=0;i<shaketail.size();i++){
+            Map[shaketail[i].y][shaketail[i].x]=smbl;
+        }
+    }
+
     ~Shake(){
         //shakecounter--;
     }
@@ -219,6 +231,7 @@ class Shakescntrl{
                 }
             }
             else{
+                    shakes[i].fillshake(Map,'d');
                     shakes[i].~Shake();
                     shakes.erase(shakes.begin() + i);
                     shakes[0].shakedie();// уменьшеает shakecounter
