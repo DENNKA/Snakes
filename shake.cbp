@@ -17,20 +17,11 @@
 					<Add directory="../ext/SFML-2.5.0/include" />
 				</Compiler>
 				<Linker>
-					<Add library="sfml-system" />
-					<Add library="sfml-window" />
-					<Add library="sfml-graphics" />
-					<Add library="sfml-main" />
-					<Add library="sfml-audio" />
-					<Add library="winmm" />
-					<Add library="opengl32" />
-					<Add library="gdi32" />
-					<Add library="freetype" />
-					<Add library="openal32" />
-					<Add library="flac" />
-					<Add library="vorbisenc" />
-					<Add library="vorbisfile" />
-					<Add library="vorbis" />
+					<Add library="sfml-system-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-main-d" />
+					<Add library="sfml-audio-d" />
 					<Add library="ogg" />
 					<Add directory="../ext/SFML-2.5.0/lib" />
 				</Linker>
@@ -42,9 +33,17 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../ext/SFML-2.5.0/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="sfml-system" />
+					<Add library="sfml-window" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-main" />
+					<Add library="sfml-audio" />
+					<Add library="ogg" />
+					<Add directory="../ext/SFML-2.5.0/lib" />
 				</Linker>
 			</Target>
 		</Build>

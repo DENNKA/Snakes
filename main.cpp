@@ -17,6 +17,7 @@
 #include "render.h"
 
 
+
 using namespace sf;
 
 
@@ -87,7 +88,7 @@ public:
     int getshaketaily(int i){return shaketail[i].y;}
     void divisionsuccess(std::string *Map){
         for (int i=shakesize-6;i<shakesize-1;i++){
-            std::cout<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
+            std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
             Map[shaketail[i].y][shaketail[i].x]=' ';
         }
         shakesize-=5;
@@ -122,15 +123,15 @@ public:
             }
         }
 
-        std::cout<<std::setw(3)<<shakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
-        std::cout<<"\tsaturarion = "<<saturation<<std::endl;
+        std::clog<<std::setw(3)<<shakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
+        std::clog<<"\tsaturarion = "<<saturation<<std::endl;
 
         if (up>=down&&up>=left&&up>=right){y-=1;}else{
                 if (down>=left&&down>=right&&down>=up){y+=1;}else{
                     if (left>=right&&left>=up&&left>=down){x-=1;}else{
                         if (right>=up&&right>=down&&right>=left){x+=1;}}}}
 
-        std::cout<<"y= "<<y<<" x= "<<x<<" shakesize= "<<shakesize<<" shaketail.size= "<<shaketail.size()<<std::endl;
+        std::clog<<"y= "<<y<<" x= "<<x<<" shakesize= "<<shakesize<<" shaketail.size= "<<shaketail.size()<<std::endl;
 
         switch (Map[y][x]){
             case '0':
@@ -140,28 +141,29 @@ public:
             case 'f':
                 saturation++;
                 break;
+            default:
+                Map[y][x]='s';
         }
 
-        Map[y][x]='s';
         up=0;down=0;left=0;right=0;
 
 
         for (int i=(shakesize-1);i>0;i--){
             shaketail[i].y=shaketail[i-1].y;
             shaketail[i].x=shaketail[i-1].x;
-            std::cout<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
+            std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
             Map[shaketail[i].y][shaketail[i].x]='s';
         }
 
         /*for (int i=0;i<shakesize;i++){
-            std::cout<<shaketail[i].x<<' '<<shaketail[i].y<<std::endl;
+            std::clog<<shaketail[i].x<<' '<<shaketail[i].y<<std::endl;
         }*/
         //Map[shaketail[0].y][shaketail[0].x]=' ';// временно
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
         Map[shaketail[0].y][shaketail[0].x]='s';
         Map[shaketail[shakesize-1].y][shaketail[shakesize-1].x]=' ';
-        std::cout<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
+        std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
 
         //Map[lasty][lastx]=' '; // временно
 
@@ -177,7 +179,7 @@ public:
 
         lastx=x;lasty=y;
 
-        std::cout<<std::endl;
+        std::clog<<std::endl;
     }
 
     ~Shake(){
@@ -195,7 +197,7 @@ class Shakescntrl{
     shakes[1].y=10;*/
     }
     void update(std::string *Map){
-        std::cout<<"shakes size= "<<shakes.size();
+        std::clog<<"shakes size= "<<shakes.size();
         for (int i=0;i<shakes[0].getshakecounter();i++){
             if (shakes[i].getlive()){
                 shakes[i].update(Map);
@@ -210,7 +212,7 @@ class Shakescntrl{
                     /*for (int i=(shakes[i].getshakesize()-2);i>5;i--){
                         shakes[i+1].shaketail[i].y=shakes[i].getshaketaily(i);
                         shakes[i+1].shaketail[i].x=shakes[i].getshaketailx(i);
-                        //std::cout<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
+                        //std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
                         Map[shakes[i+1].shaketail[i].y][shakes[i+1].shaketail[i].x]='s'; //error sigsegv
                     }*/
                     shakes[i].divisionsuccess(Map);
@@ -232,9 +234,20 @@ short Shake::shakecounter=0;
 
 int main()
 {
+    {
+        int log=0;
+        std::cout<<"Log in console? ";
+        std::cin>>log;
+
+        if (log==0){
+            std::clog.setstate(std::ios_base::failbit);
+        }
+    }
+
     int timedelay;
-    std::cout<<"Enter time delay "<<std::endl;
+    std::cout<<"Enter time delay. ";
     std::cin>>timedelay;
+    std::cout<<std::endl;
 
     srand(time(NULL));
     std::string Map [hmap+5] = {
@@ -294,7 +307,7 @@ int main()
 				game.getwindow()->close();
 		}
 
-        std::cout<<std::endl<<std::endl;
+        std::clog<<std::endl<<std::endl;
 
 
         shakescntrl.update(Map);
