@@ -97,7 +97,7 @@ public:
     }
 
 
-    void addtail(std::vector<c> &shaketail){
+    void addtail(){
         shaketail.resize(shaketail.size()+1);
         shakesize++;
     }
@@ -174,7 +174,7 @@ public:
 
         if (saturation>9){
             saturation-=10;
-            addtail(shaketail);
+            addtail();
         }
 
 
