@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1547968775 source:d:\denis\code\shake\main.cpp
+1548179770 source:d:\denis\code\shake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>
@@ -10,6 +10,7 @@
 	<time.h>
 	<string>
 	<iomanip>
+	<boost/numeric/ublas/vector.hpp>
 	"balance.h"
 	"render.h"
 

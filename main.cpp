@@ -13,6 +13,9 @@
 #include <iomanip>
 
 
+#include <boost/numeric/ublas/vector.hpp>
+
+
 #include "balance.h"
 #include "render.h"
 
@@ -74,7 +77,7 @@ public:
     int x,y;
     };
 
-    std::vector<c>shaketail;
+    boost::numeric::ublas::vector<c>shaketail;
 
     void shakedie(){shakecounter--;}
     void setxy(int sx,int sy){x=sx; y=sy;}
@@ -93,7 +96,7 @@ public:
         }
         shakesize-=5;
         division=0;
-        shaketail.erase(shaketail.end()-5,shaketail.end());
+        shaketail.resize(shakesize-1);
     }
 
 
@@ -152,8 +155,7 @@ public:
 
         up=0;down=0;left=0;right=0;
 
-
-        for (int i=(shakesize-1);i>0;i--){
+        for (int i=(shakesize-2);i>0;i--){
             shaketail[i].y=shaketail[i-1].y;
             shaketail[i].x=shaketail[i-1].x;
             std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
@@ -167,7 +169,7 @@ public:
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
         Map[shaketail[0].y][shaketail[0].x]='s';
-        Map[shaketail[shakesize-1].y][shaketail[shakesize-1].x]=' ';
+        Map[shaketail[shakesize-2].y][shaketail[shakesize-2].x]=' ';
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
 
         //Map[lasty][lastx]=' '; // временно
@@ -189,7 +191,7 @@ public:
 
     void fillshake(std::string *Map,char smbl){
         //Map[y][x]=smbl;
-        for (unsigned int i=0;i<shaketail.size();i++){
+        for (auto i=0;i<shakesize-2;i++){
             Map[shaketail[i].y][shaketail[i].x]=smbl;
         }
     }
@@ -233,13 +235,14 @@ class Shakescntrl{
             else{
                     shakes[i].fillshake(Map,'d');
                     shakes[i].~Shake();
-                    shakes.erase(shakes.begin() + i);
+                    shakes.erase_element(i);
                     shakes[0].shakedie();// уменьшеает shakecounter
                     //i--;
             }
         }
     }
-    std::vector<Shake> shakes;
+
+    boost::numeric::ublas::vector<Shake> shakes;
 };
 
 
