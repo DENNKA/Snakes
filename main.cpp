@@ -90,7 +90,7 @@ public:
     int getshaketailx(int i){return shaketail[i].x;}
     int getshaketaily(int i){return shaketail[i].y;}
     void divisionsuccess(std::string *Map){
-        for (int i=shakesize-6;i<shakesize-1;i++){
+        for (int i=shakesize-7;i<shakesize-2;i++){
             std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
             Map[shaketail[i].y][shaketail[i].x]=' ';
         }
@@ -234,10 +234,10 @@ class Shakescntrl{
             }
             else{
                     shakes[i].fillshake(Map,'d');
-                    shakes[i].~Shake();
+                    //shakes[i].~Shake();
                     shakes.erase_element(i);
                     shakes[0].shakedie();// уменьшеает shakecounter
-                    //i--;
+                    i--;
             }
         }
     }
