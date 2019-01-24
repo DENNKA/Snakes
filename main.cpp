@@ -89,10 +89,17 @@ public:
     short getshakecounter(){return shakecounter;}
     int getshaketailx(int i){return shaketail[i].x;}
     int getshaketaily(int i){return shaketail[i].y;}
-    void divisionsuccess(std::string *Map){
+
+    void divisionsuccess(std::string *Map,Shake &shake){
+        int j=3;
         for (int i=shakesize-7;i<shakesize-2;i++){
             std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
             Map[shaketail[i].y][shaketail[i].x]=' ';
+            /*if (j!=-1){
+                shake.shaketail[j].x=shaketail[i].x;
+                shake.shaketail[j].y=shaketail[i].y;
+            }
+            j--;*///work in progress
         }
         shakesize-=5;
         division=0;
@@ -105,26 +112,27 @@ public:
         shakesize++;
     }
 
-    void update(std::string *Map){ //x- лево x+ право y- вверх y+ низ
-
+    void update(std::string *Map){ //x- left x+ right y- up y+ down
         for (int i=0;i<7;i++){
             for (int j=0;j<7;j++){
-                if ((y-3+i)>=0&&(x-3+j)>=0){    //тут вроде баг
-                    switch (Map[y-3+i][x-3+j]){
-                        case 'f':
-                        case 'd':
-                            up+=foodup[i][j];
-                            down+=fooddown[i][j];
-                            left+=foodleft[i][j];
-                            right+=foodright[i][j];
-                            break;
-                        case '0':
-                        case 's':
-                            up-=wallup[i][j];
-                            down-=walldown[i][j];
-                            left-=wallleft[i][j];
-                            right-=wallright[i][j];
-                            break;
+                if ((y-3+i)>=0&&(x-3+j)>=0){
+                    if ((y-3+i)<hmap&&(x-3+j)<wmap){//need test
+                        switch (Map[y-3+i][x-3+j]){
+                            case 'f':
+                            case 'd':
+                                up+=foodup[i][j];
+                                down+=fooddown[i][j];
+                                left+=foodleft[i][j];
+                                right+=foodright[i][j];
+                                break;
+                            case '0':
+                            case 's':
+                                up-=wallup[i][j];
+                                down-=walldown[i][j];
+                                left-=wallleft[i][j];
+                                right-=wallright[i][j];
+                                break;
+                        }
                     }
                 }
             }
@@ -165,14 +173,14 @@ public:
         /*for (int i=0;i<shakesize;i++){
             std::clog<<shaketail[i].x<<' '<<shaketail[i].y<<std::endl;
         }*/
-        //Map[shaketail[0].y][shaketail[0].x]=' ';// временно
+        //Map[shaketail[0].y][shaketail[0].x]=' ';// temporarily
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
         Map[shaketail[0].y][shaketail[0].x]='s';
         Map[shaketail[shakesize-2].y][shaketail[shakesize-2].x]=' ';
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
 
-        //Map[lasty][lastx]=' '; // временно
+        //Map[lasty][lastx]=' '; // temporarily
 
         if (saturation>9){
             saturation-=10;
@@ -216,7 +224,7 @@ class Shakescntrl{
             if (shakes[i].getlive()){
                 shakes[i].update(Map);
 
-                if (shakes[i].getdivision()){//деление
+                if (shakes[i].getdivision()){//division
                     shakes.resize(shakes[0].getshakecounter()+1);
 
                     shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
@@ -229,7 +237,7 @@ class Shakescntrl{
                         //std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
                         Map[shakes[i+1].shaketail[i].y][shakes[i+1].shaketail[i].x]='s'; //error sigsegv
                     }*/
-                    shakes[i].divisionsuccess(Map);
+                    shakes[i].divisionsuccess(Map,shakes[i+1]);
                 }
             }
             else{
@@ -266,7 +274,7 @@ int main()
     std::cout<<std::endl;
 
     srand(time(NULL));
-    std::string Map [hmap+5] = {
+    std::string Map [hmap] = {
 	"0000000000000000000000000000000000000000",
 	"0                                      0",
 	"0                                      0",
