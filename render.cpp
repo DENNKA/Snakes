@@ -2,8 +2,8 @@
 #include <string>
 
 using namespace sf;
-        render::render(sf::RenderWindow* win) : window(win){}
-        void render::gorender (std::string *Map,short hmap,short wmap,short Size,short Size2){
+
+        void render::gorender (std::shared_ptr<RenderWindow> window,std::string *Map,short hmap,short wmap,short Size,short Size2){
             window->clear();
             RectangleShape rectangle(Vector2f(Size, Size));
 

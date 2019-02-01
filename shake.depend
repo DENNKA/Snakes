@@ -529,15 +529,16 @@
 
 1545491178 d:\denis\code\shake\balance.h
 
-1547828682 d:\denis\code\shake\render.h
+1549027418 d:\denis\code\shake\render.h
 	<SFML/Graphics.hpp>
+	<memory>
 
 1545490246 d:\denis\code\shake\render.cpp
 	<string>
 
 1538891232 source:d:\denis\code\shake\balance.h
 
-1548570252 source:d:\denis\code\shake\render.cpp
+1549026999 source:d:\denis\code\shake\render.cpp
 	"render.h"
 	<string>
 

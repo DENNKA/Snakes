@@ -58,20 +58,20 @@ class Game{
     }
 
     void setupwindow(int weight=1000,int height=700){
-        window = new sf::RenderWindow(sf::VideoMode(weight, height), "shake");
+        //window = new sf::RenderWindow(sf::VideoMode(weight, height), "shake");
+        window.reset(new sf::RenderWindow(sf::VideoMode(weight, height), "shake"));
     }
 
-    sf::RenderWindow* getwindow(){return window;}
+    std::shared_ptr<sf::RenderWindow> getwindow(){return window;}
     int gettimedelay(){return timedelay;}
     void settimedelay(int td){if(td>=0){timedelay=td;}else{timedelay=0;}}
 
     ~Game(){
-        delete window;
     }
 
     private:
     int timedelay=0;
-    sf::RenderWindow* window;
+    std::shared_ptr<sf::RenderWindow> window;
 };
 class World {
     public:
@@ -308,7 +308,7 @@ int main()
 
     Shakescntrl shakescntrl;
 
-    render rendershake(game.getwindow());
+    render rendershake;
 
     srand(time(NULL));
 
@@ -366,9 +366,7 @@ int main()
 
         world.update(Map);
 
-        //Map[0][0]='0';  //need delete
-
-        rendershake.gorender(Map, hmap, wmap, Size, Size2);
+        rendershake.gorender(game.getwindow(), Map, hmap, wmap, Size, Size2);
 
 		Sleep(game.gettimedelay());
 	}
