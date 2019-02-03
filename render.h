@@ -3,10 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "World.h"
 
     class render{
         public:
-            void gorender (std::shared_ptr<sf::RenderWindow> window,std::string *Map,short hmap,short wmap,short Size1,short Size2);
+            void gorender (std::shared_ptr<sf::RenderWindow> window,World* world,short hmap,short wmap,short Size1,short Size2);
         private:
     };
 

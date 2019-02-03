@@ -15,13 +15,13 @@
 
 #include <boost/numeric/ublas/vector.hpp>
 
-
-#include "balance.h"
+#include "World.h"
+//#include "balance.h"
 #include "render.h"
 
 
 
-using namespace sf;
+using namespace std;
 
 
 	//RenderWindow window(VideoMode::getDesktopMode(), "shake");
@@ -30,7 +30,6 @@ using namespace sf;
     //GameWindow = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode( getWindowWidth(), getWindowHeight() ), "Title Goes Here"));
 
 const short Size=20,Size2=1; //size squares
-const short hmap=25,wmap=40; //size map
 
 
 
@@ -73,15 +72,6 @@ class Game{
     int timedelay=0;
     std::shared_ptr<sf::RenderWindow> window;
 };
-class World {
-    public:
-    int update(std::string *Map){
-        int y =1 + rand() % (hmap-2);
-        int x =1 + rand() % (wmap-2);
-        if (Map[y][x]==' ')
-            Map[y][x]='f';
-    }
-};
 
 
 class Shake {
@@ -101,9 +91,83 @@ public:
 
     bool live=1, division=0;
     short static shakecounter;
-    short x=0,y=0,up=0,down=0,left=0,right=0,lastx=0,lasty=0,shakeid,shakesize=5,saturation=0;
+    short x=0,y=0,up=0,down=0,left=0,right=0,lastx=0,lasty=0,shakeid,shakesize=5,saturation=8;
     short hungryi=0;
 
+    short weight[8][7][7]={
+    {
+    {5,5,5,5,5,5,5},
+    {5,10,10,10,10,10,5},
+    {5,10,20,20,20,10,5},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    },
+    {
+    {0,0,0,0,5,5,5},
+    {0,0,0,0,10,10,5},
+    {0,0,0,0,20,10,5},
+    {0,0,0,0,20,10,5},
+    {0,0,0,0,20,10,5},
+    {0,0,0,0,10,10,5},
+    {0,0,0,0,5,5,5},
+    },
+    {
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {5,10,20,20,20,10,5},
+    {5,10,10,10,10,10,5},
+    {5,5,5,5,5,5,5},
+    },
+    {
+    {5,5,5,0,0,0,0},
+    {5,10,10,0,0,0,0},
+    {5,10,20,0,0,0,0},
+    {5,10,20,0,0,0,0},
+    {5,10,20,0,0,0,0},
+    {5,10,10,0,0,0,0},
+    {5,5,5,0,0,0,0},
+    },
+    {
+    {1,1,1,1,1,1,1},
+    {1,1,1,5,1,1,1},
+    {1,1,5,20,5,1,1},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    },
+    {
+    {0,0,0,0,1,1,1},
+    {0,0,0,0,1,1,1},
+    {0,0,0,0,5,1,1},
+    {0,0,0,0,20,5,1},
+    {0,0,0,0,5,1,1},
+    {0,0,0,0,1,1,1},
+    {0,0,0,0,1,1,1},
+    },
+    {
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0},
+    {1,1,5,20,5,1,1},
+    {1,1,1,5,1,1,1},
+    {1,1,1,1,1,1,1},
+    },
+    {
+    {1,1,1,0,0,0,0},
+    {1,1,1,0,0,0,0},
+    {1,1,5,0,0,0,0},
+    {1,5,20,0,0,0,0},
+    {1,1,5,0,0,0,0},
+    {1,1,1,0,0,0,0},
+    {1,1,1,0,0,0,0},
+    }
+    };
     struct c {
     int x,y;
     };
@@ -121,11 +185,40 @@ public:
     int getshaketailx(int i){return shaketail[i].x;}
     int getshaketaily(int i){return shaketail[i].y;}
 
-    void divisionsuccess(std::string *Map,Shake &shake){
-        //int j=3;
-        for (int i=shakesize-7;i<shakesize-2;i++){
+    void randomallweight(){
+        for (int i=0;i<8;i++){
+            for (int j=0;j<7;j++){
+                for (int k=0;k<7;k++){
+                weight[i][j][k]=rand()%2;
+                }
+            }
+        }
+    }
+
+    void divisionsuccess(World *world,Shake &shake){
+        for (int i=0;i<8;i++){
+            for (int j=0;j<7;j++){
+                for (int k=0;k<7;k++){
+                shake.weight[i][j][k]=weight[i][j][k];
+                }
+            }
+        }
+        for (int i=10+rand()%11;i!=0;i--){
+            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%11-5;
+        }
+        /*for (int j=0;j<7;j++){
+            for (int k=0;k<7;k++){
+            cout<<setw(4)<<shake.weight[0][j][k]<<' ';
+            }
+            cout<<endl;
+        }
+        cout<<endl;*/
+        /*int j=3;
+        shake.lastx=shaketail[shakesize-3].x;
+        shake.lasty=shaketail[shakesize-3].y;*/
+        for (int i=shakesize-7;i<shakesize-3;i++){
             std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
-            Map[shaketail[i].y][shaketail[i].x]=' ';
+            world->setmap(shaketail[i].y,shaketail[i].x,' ');
             /*if (j!=-1){
                 shake.shaketail[j].x=shaketail[i].x;
                 shake.shaketail[j].y=shaketail[i].y;
@@ -143,32 +236,32 @@ public:
         shakesize++;
     }
 
-    void delltail(std::string *Map){
-        if (Map[shaketail[shaketail.size()-2].y][shaketail[shaketail.size()-2].x]!='0')
-            Map[shaketail[shaketail.size()-2].y][shaketail[shaketail.size()-2].x]=' ';
+    void delltail(World *world){
+        world->setmap(shaketail[shaketail.size()-2].y,shaketail[shaketail.size()-2].x,' ');
         shaketail.resize(shaketail.size()-1);
         shakesize--;
     }
 
-    void update(std::string *Map){ //x- left x+ right y- up y+ down
+    void update(World *world){ //x- left x+ right y- up y+ down
         for (int i=0;i<7;i++){
             for (int j=0;j<7;j++){
                 if ((y-3+i)>=0&&(x-3+j)>=0){
                     if ((y-3+i)<hmap&&(x-3+j)<wmap){
-                        switch (Map[y-3+i][x-3+j]){
+                        switch (world->getmap(y-3+i,x-3+j)){
                             case 'f':
                             case 'd':
-                                up+=foodup[i][j];
-                                down+=fooddown[i][j];
-                                left+=foodleft[i][j];
-                                right+=foodright[i][j];
+                                up+=weight[0][i][j];
+                                right+=weight[1][i][j];
+                                down+=weight[2][i][j];
+                                left+=weight[3][i][j];
+
                                 break;
                             case '0':
                             case 's':
-                                up-=wallup[i][j];
-                                down-=walldown[i][j];
-                                left-=wallleft[i][j];
-                                right-=wallright[i][j];
+                                up-=weight[4][i][j];
+                                right-=weight[5][i][j];
+                                down-=weight[6][i][j];
+                                left-=weight[7][i][j];
                                 break;
                         }
                     }
@@ -186,7 +279,7 @@ public:
 
         std::clog<<"y= "<<y<<" x= "<<x<<" shakesize= "<<shakesize<<" shaketail.size= "<<shaketail.size()<<std::endl;
 
-        switch (Map[y][x]){
+        switch (world->getmap(y,x)){
             case '0':
             case 's':
                 live=false;
@@ -195,17 +288,19 @@ public:
             case 'f':
                 saturation++;
             default:
-                Map[y][x]='s';
+                world->setmap(y,x,'s');
                 break;
         }
 
         up=0;down=0;left=0;right=0;
 
+        //world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');//bug there
+
         for (int i=(shakesize-2);i>0;i--){
             shaketail[i].y=shaketail[i-1].y;
             shaketail[i].x=shaketail[i-1].x;
             std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
-            Map[shaketail[i].y][shaketail[i].x]='s';
+            world->setmap(shaketail[i].y,shaketail[i].x,'s');
         }
 
         /*for (int i=0;i<shakesize;i++){
@@ -214,8 +309,8 @@ public:
         //Map[shaketail[0].y][shaketail[0].x]=' ';// temporarily
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
-        Map[shaketail[0].y][shaketail[0].x]='s';
-        Map[shaketail[shakesize-2].y][shaketail[shakesize-2].x]=' ';
+        world->setmap(shaketail[0].y,shaketail[0].x,'s');
+        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
 
         //Map[lasty][lastx]=' '; // temporarily
@@ -227,7 +322,7 @@ public:
 
         if (saturation==0){
             saturation+=10;
-            delltail(Map);
+            delltail(world);
         }
 
         if (shakesize<4){
@@ -245,11 +340,10 @@ public:
         std::clog<<std::endl;
     }
 
-    void fillshake(std::string *Map,char smbl){
-        if (Map[y][x]!='0')
-            Map[y][x]=smbl;
+    void fillshake(World *world,char symbol){
+        world->setmap(y,x,symbol);
         for (auto i=0;i<shakesize-2;i++){
-            Map[shaketail[i].y][shaketail[i].x]=smbl;
+            world->setmap(shaketail[i].y,shaketail[i].x,symbol);
         }
     }
 
@@ -262,42 +356,46 @@ public:
 class Shakescntrl{
     public:
     Shakescntrl(){
-    shakes.resize(1);
+    //shakes.resize(1);
     }
 
-    void update(std::string *Map){
+    void update(World *world){
         std::clog<<"shakes size= "<<shakes.size();
-        for (int i=0;i<shakes[0].getshakecounter();i++){
-            if (shakes[i].getlive()){
-                shakes[i].update(Map);
+        if (shakes.size()==0){
+            cout<<"Restart!!!\n";
+            shakes.resize(1);
+            shakes[0].randomallweight();
+        }
+        else{
+            for (int i=0;i<shakes[0].getshakecounter();i++){
+                if (shakes[i].getlive()){
+                    shakes[i].update(world);
 
-                if (shakes[i].getdivision()){
-                    shakes.resize(shakes[0].getshakecounter()+1);
-                    shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
-                    shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
-                    shakes[i].divisionsuccess(Map,shakes[i+1]);
-
+                    if (shakes[i].getdivision()){
+                        shakes.resize(shakes[0].getshakecounter()+1);
+                        shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
+                        shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
+                        shakes[i].divisionsuccess(world,shakes[i+1]);
+                    }
                 }
-            }
-            else{
-                    shakes[i].fillshake(Map,'d');
-                    //shakes[i].~Shake();
-                    shakes.erase(shakes.begin()+i);
-                    shakes[0].shakedie();// decrease shakecounter
-                    i--;
+                else{
+                        shakes[i].fillshake(world,'d');
+                        //shakes[i].~Shake();
+                        shakes.erase(shakes.begin()+i);
+                        shakes[0].shakedie();// decrease shakecounter
+                        i--;
+                }
             }
         }
     }
-
     std::vector<Shake> shakes;
 };
 
 
 short Shake::shakecounter=0;
 
+int main(){
 
-int main()
-{
     Game game;
 
     game.setup();
@@ -311,35 +409,6 @@ int main()
     render rendershake;
 
     srand(time(NULL));
-
-    std::string Map [hmap] = {
-	"0000000000000000000000000000000000000000",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0000000000000000000000000000000000000000",
-};
-
 
 	while (game.getwindow()->isOpen()){
 
@@ -361,12 +430,11 @@ int main()
 
         std::clog<<std::endl<<std::endl;
 
+        shakescntrl.update(&world);
 
-        shakescntrl.update(Map);
+        world.update();
 
-        world.update(Map);
-
-        rendershake.gorender(game.getwindow(), Map, hmap, wmap, Size, Size2);
+        rendershake.gorender(game.getwindow(), &world, hmap, wmap, Size, Size2);
 
 		Sleep(game.gettimedelay());
 	}

@@ -51,6 +51,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="World.cpp" />
+		<Unit filename="World.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="balance.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
