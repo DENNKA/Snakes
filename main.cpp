@@ -34,7 +34,16 @@ const short Size=20,Size2=1; //size squares
 
 
 class Game{
-    public:
+   private:
+
+    int timedelay=0;
+    std::shared_ptr<sf::RenderWindow> window;
+
+   public:
+
+    bool inheritanceandmutations=0;
+    bool randominbegin=0;
+    bool restart=0;
 
     Game(int td=0){
         timedelay=td;
@@ -67,10 +76,6 @@ class Game{
 
     ~Game(){
     }
-
-    private:
-    int timedelay=0;
-    std::shared_ptr<sf::RenderWindow> window;
 };
 
 
@@ -185,26 +190,33 @@ public:
     int getshaketailx(int i){return shaketail[i].x;}
     int getshaketaily(int i){return shaketail[i].y;}
 
-    void randomallweight(){
+    void randomallweight(int mode=1,int x=3){
         for (int i=0;i<8;i++){
             for (int j=0;j<7;j++){
                 for (int k=0;k<7;k++){
-                weight[i][j][k]=rand()%2;
+                    switch (mode){
+                        case 1:
+                            weight[i][j][k]=rand()%x;
+                        case 2:
+                            weight[i][j][k]+=rand()%x;
+                    }
                 }
             }
         }
     }
 
-    void divisionsuccess(World *world,Shake &shake){
-        for (int i=0;i<8;i++){
-            for (int j=0;j<7;j++){
-                for (int k=0;k<7;k++){
-                shake.weight[i][j][k]=weight[i][j][k];
+    void divisionsuccess(World *world,Shake &shake,Game *game){
+        if (game->inheritanceandmutations){
+            for (int i=0;i<8;i++){
+                for (int j=0;j<7;j++){
+                    for (int k=0;k<7;k++){
+                        shake.weight[i][j][k]=weight[i][j][k];
+                    }
                 }
             }
-        }
-        for (int i=10+rand()%11;i!=0;i--){
-            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%11-5;
+            for (int i=10+rand()%11;i!=0;i--){
+                shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%11-5;
+            }
         }
         /*for (int j=0;j<7;j++){
             for (int k=0;k<7;k++){
@@ -355,16 +367,19 @@ public:
 
 class Shakescntrl{
     public:
-    Shakescntrl(){
-    //shakes.resize(1);
+    Shakescntrl(Game *game){
+    shakes.resize(1);
+    if (game->randominbegin)
+        shakes[0].randomallweight(2,10);
     }
 
-    void update(World *world){
+    void update(World *world,Game *game){
         std::clog<<"shakes size= "<<shakes.size();
-        if (shakes.size()==0){
+        if (shakes.size()==0&&game->restart){
             cout<<"Restart!!!\n";
             shakes.resize(1);
-            shakes[0].randomallweight();
+            if (game->randominbegin)
+                shakes[0].randomallweight(2,10);
         }
         else{
             for (int i=0;i<shakes[0].getshakecounter();i++){
@@ -375,7 +390,7 @@ class Shakescntrl{
                         shakes.resize(shakes[0].getshakecounter()+1);
                         shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
                         shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
-                        shakes[i].divisionsuccess(world,shakes[i+1]);
+                        shakes[i].divisionsuccess(world,shakes[i+1],game);
                     }
                 }
                 else{
@@ -394,6 +409,7 @@ class Shakescntrl{
 
 short Shake::shakecounter=0;
 
+
 int main(){
 
     Game game;
@@ -404,7 +420,7 @@ int main(){
 
     World world;
 
-    Shakescntrl shakescntrl;
+    Shakescntrl shakescntrl(&game);
 
     render rendershake;
 
@@ -430,7 +446,7 @@ int main(){
 
         std::clog<<std::endl<<std::endl;
 
-        shakescntrl.update(&world);
+        shakescntrl.update(&world,&game);
 
         world.update();
 
