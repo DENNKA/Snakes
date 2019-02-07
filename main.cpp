@@ -24,12 +24,10 @@
 using namespace std;
 
 
-	//RenderWindow window(VideoMode::getDesktopMode(), "shake");
-	//sf::RenderWindow* window (new sf::RenderWindow(VideoMode::getDesktopMode(), "shake"));
 
-    //GameWindow = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode( getWindowWidth(), getWindowHeight() ), "Title Goes Here"));
+const int Size=15,Size2=1; //size squares
 
-const short Size=20,Size2=1; //size squares
+const int mutationx=5, mutationk=5;
 
 
 
@@ -41,9 +39,11 @@ class Game{
 
    public:
 
-    bool inheritanceandmutations=0;
+    bool evolution=0;
     bool randominbegin=0;
     bool restart=0;
+    bool randommode=0;
+    int randomx=0;
 
     Game(int td=0){
         timedelay=td;
@@ -61,8 +61,27 @@ class Game{
         int timedelay;
         std::cout<<"Enter time delay. (during program work use left mouse button to increase time delay, right to decrease)  ";
         std::cin>>timedelay;
-        std::cout<<std::endl;
         settimedelay(timedelay);
+
+        cout<<"If all snakes die restart game? (recommended 1) ";
+        cin>>restart;
+
+        cout<<"On evolution? ";
+        cin>>evolution;
+
+        if (evolution){
+
+            cout<<"randome in begin? ";
+            cin>>randominbegin;
+
+            if (randominbegin){
+
+                cout<<"relative random? (if 0 random be absolute) ";
+                cin>>randommode;
+                cout<<"How hard randome? ";
+                cin>>randomx;
+            }
+        }
     }
 
     void setupwindow(int weight=1000,int height=700){
@@ -95,11 +114,12 @@ public:
 
 
     bool live=1, division=0;
-    short static shakecounter;
-    short x=0,y=0,up=0,down=0,left=0,right=0,lastx=0,lasty=0,shakeid,shakesize=5,saturation=8;
-    short hungryi=0;
+    int static shakecounter;
+    int x=0,y=0,up=0,down=0,left=0,right=0,lastx=0,lasty=0,shakeid,shakesize=5,saturation=8;
+    int hungryi=0;
+    int xlasttail=0,ylasttail=0;
 
-    short weight[8][7][7]={
+    int weight[8][7][7]={
     {
     {5,5,5,5,5,5,5},
     {5,10,10,10,10,10,5},
@@ -185,19 +205,19 @@ public:
 
     bool getdivision(){return division;}
     bool getlive(){return live;}
-    short getshakesize(){return shakesize;}
-    short getshakecounter(){return shakecounter;}
+    int getshakesize(){return shakesize;}
+    int getshakecounter(){return shakecounter;}
     int getshaketailx(int i){return shaketail[i].x;}
     int getshaketaily(int i){return shaketail[i].y;}
 
-    void randomallweight(int mode=1,int x=3){
+    void randomallweight(int mode,int x){
         for (int i=0;i<8;i++){
             for (int j=0;j<7;j++){
                 for (int k=0;k<7;k++){
                     switch (mode){
-                        case 1:
+                        case 0:
                             weight[i][j][k]=rand()%x;
-                        case 2:
+                        case 1:
                             weight[i][j][k]+=rand()%x;
                     }
                 }
@@ -206,7 +226,7 @@ public:
     }
 
     void divisionsuccess(World *world,Shake &shake,Game *game){
-        if (game->inheritanceandmutations){
+        if (game->evolution){
             for (int i=0;i<8;i++){
                 for (int j=0;j<7;j++){
                     for (int k=0;k<7;k++){
@@ -214,8 +234,8 @@ public:
                     }
                 }
             }
-            for (int i=10+rand()%11;i!=0;i--){
-                shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%11-5;
+            for (int i=0;i<mutationk;i++){
+                shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
             }
         }
         /*for (int j=0;j<7;j++){
@@ -225,17 +245,17 @@ public:
             cout<<endl;
         }
         cout<<endl;*/
-        /*int j=3;
+        int j=3;
         shake.lastx=shaketail[shakesize-3].x;
-        shake.lasty=shaketail[shakesize-3].y;*/
-        for (int i=shakesize-7;i<shakesize-3;i++){
+        shake.lasty=shaketail[shakesize-3].y;
+        for (int i=shakesize-7;i<shakesize-2;i++){
             std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
-            world->setmap(shaketail[i].y,shaketail[i].x,' ');
-            /*if (j!=-1){
+            //world->setmap(shaketail[i].y,shaketail[i].x,' ');
+            if (j!=-1){
                 shake.shaketail[j].x=shaketail[i].x;
                 shake.shaketail[j].y=shaketail[i].y;
             }
-            j--;*/    //work in progress
+            j--;    //work in progress
         }
         shakesize-=5;
         division=0;
@@ -249,7 +269,8 @@ public:
     }
 
     void delltail(World *world){
-        world->setmap(shaketail[shaketail.size()-2].y,shaketail[shaketail.size()-2].x,' ');
+        world->setmap(ylasttail,xlasttail,' ');
+        //world->setmap(shaketail[shaketail.size()-2].y,shaketail[shaketail.size()-2].x,' ');     //bug
         shaketail.resize(shaketail.size()-1);
         shakesize--;
     }
@@ -304,9 +325,15 @@ public:
                 break;
         }
 
+        /*if(live==false&&shakesize>4){
+            if(world->getmap(y-1,x)==' '||world->getmap(y+1,x)==' '||world->getmap(y,x-1)==' '||world->getmap(y,x+1)==' '){
+                int error123=1;
+            }
+        }*/
+
         up=0;down=0;left=0;right=0;
 
-        //world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');//bug there
+        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');//bug there
 
         for (int i=(shakesize-2);i>0;i--){
             shaketail[i].y=shaketail[i-1].y;
@@ -315,17 +342,12 @@ public:
             world->setmap(shaketail[i].y,shaketail[i].x,'s');
         }
 
-        /*for (int i=0;i<shakesize;i++){
-            std::clog<<shaketail[i].x<<' '<<shaketail[i].y<<std::endl;
-        }*/
-        //Map[shaketail[0].y][shaketail[0].x]=' ';// temporarily
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
         world->setmap(shaketail[0].y,shaketail[0].x,'s');
-        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
+        //world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
+        xlasttail=shaketail[shakesize-2].x;ylasttail=shaketail[shakesize-2].y;
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
-
-        //Map[lasty][lastx]=' '; // temporarily
 
         if (saturation>12){
             saturation-=10;
@@ -350,11 +372,12 @@ public:
         lastx=x;lasty=y;
 
         std::clog<<std::endl;
+
     }
 
     void fillshake(World *world,char symbol){
         world->setmap(y,x,symbol);
-        for (auto i=0;i<shakesize-2;i++){
+        for (auto i=0;i<shakesize-1;i++){
             world->setmap(shaketail[i].y,shaketail[i].x,symbol);
         }
     }
@@ -367,19 +390,22 @@ public:
 
 class Shakescntrl{
     public:
+
+    int counterrestarts=0;
+
     Shakescntrl(Game *game){
     shakes.resize(1);
     if (game->randominbegin)
-        shakes[0].randomallweight(2,10);
+        shakes[0].randomallweight(game->randommode,10);
     }
 
     void update(World *world,Game *game){
         std::clog<<"shakes size= "<<shakes.size();
         if (shakes.size()==0&&game->restart){
-            cout<<"Restart!!!\n";
+            cout<<"Restart! # "<<++counterrestarts<<endl;
             shakes.resize(1);
             if (game->randominbegin)
-                shakes[0].randomallweight(2,10);
+                shakes[0].randomallweight(game->randommode,game->randomx);
         }
         else{
             for (int i=0;i<shakes[0].getshakecounter();i++){
@@ -390,7 +416,7 @@ class Shakescntrl{
                         shakes.resize(shakes[0].getshakecounter()+1);
                         shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
                         shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
-                        shakes[i].divisionsuccess(world,shakes[i+1],game);
+                        shakes[i].divisionsuccess(world,shakes[shakes.size()-1],game);
                     }
                 }
                 else{
@@ -407,7 +433,7 @@ class Shakescntrl{
 };
 
 
-short Shake::shakecounter=0;
+int Shake::shakecounter=0;
 
 
 int main(){
@@ -420,6 +446,8 @@ int main(){
 
     World world;
 
+    world.mapsetup();
+
     Shakescntrl shakescntrl(&game);
 
     render rendershake;
@@ -428,18 +456,14 @@ int main(){
 
 	while (game.getwindow()->isOpen()){
 
-		/*float time = clock.getElapsedTime().asMicroseconds();
-		clock.restart();
-		time = time / 800;*/
-
-
 		sf::Event event;
 		while (game.getwindow()->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				game.getwindow()->close();
-            if (event.mouseButton.button == sf::Mouse::Button::Left)
+            if (event.mouseButton.button == sf::Mouse::Left&&event.mouseButton.x<3000&&event.mouseButton.x>10&&event.mouseButton.y<3000&&event.mouseButton.y>10){
                 game.settimedelay(game.gettimedelay()+5);
+            }
             if (event.mouseButton.button == sf::Mouse::Button::Right)
                 game.settimedelay(game.gettimedelay()-5);
 		}

@@ -1,43 +1,21 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-const short hmap=25,wmap=40; //size map
+const int hmap=40,wmap=60; //size map
 
 class World {
     public:
+
     void update();
 
     void setmap(int y,int x,char symbol);
 
     char getmap(int y,int x);
 
-    std::string Map [hmap] = {
-	"0000000000000000000000000000000000000000",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0000000000000000000000000000000000000000",
-    };
+    void mapsetup();
+
+    char Map[hmap][wmap];
+
 };
 
 #endif // WORLD_H_INCLUDED

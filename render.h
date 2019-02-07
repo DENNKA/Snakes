@@ -7,7 +7,7 @@
 
     class render{
         public:
-            void gorender (std::shared_ptr<sf::RenderWindow> window,World* world,short hmap,short wmap,short Size1,short Size2);
+            void gorender (std::shared_ptr<sf::RenderWindow> window,World* world,int hmap,int wmap,int Size1,int Size2);
         private:
     };
 

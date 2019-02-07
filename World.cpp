@@ -12,4 +12,20 @@
             Map[y][x]=symbol;
     }
 
-    char World::getmap(int y,int x){return Map[y][x];}
+    char World::getmap(int y,int x){if(y<hmap&&x<wmap&&y>=0&&x>=0)return Map[y][x];}
+
+    void World::mapsetup(){
+        for (int i=0;i<hmap;i++){
+            for (int j=0;j<wmap;j++){
+                Map[i][j]=' ';
+            }
+        }
+        for (int i=0;i<hmap;i++){
+            Map[i][0]='0';
+            Map[i][wmap-1]='0';
+        }
+        for (int i=0;i<wmap;i++){
+            Map[0][i]='0';
+            Map[hmap-1][i]='0';
+        }
+    }

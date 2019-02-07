@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-        void render::gorender (std::shared_ptr<RenderWindow> window,World* world,short hmap,short wmap,short Size,short Size2){
+        void render::gorender (std::shared_ptr<RenderWindow> window,World* world,int hmap,int wmap,int Size,int Size2){
             window->clear();
             RectangleShape rectangle(Vector2f(Size, Size));
 
