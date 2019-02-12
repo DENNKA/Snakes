@@ -15,6 +15,7 @@
 
 #include <boost/numeric/ublas/vector.hpp>
 
+
 #include "World.h"
 //#include "balance.h"
 #include "render.h"
@@ -35,7 +36,7 @@ class Game{
    private:
 
     int timedelay=0;
-    std::shared_ptr<sf::RenderWindow> window;
+    sf::RenderWindow* window;
 
    public:
 
@@ -84,16 +85,16 @@ class Game{
         }
     }
 
-    void setupwindow(int weight=1000,int height=700){
-        //window = new sf::RenderWindow(sf::VideoMode(weight, height), "shake");
-        window.reset(new sf::RenderWindow(sf::VideoMode(weight, height), "shake"));
+    void setupwindow(int weight=1000,int height=710){
+        window=new sf::RenderWindow(sf::VideoMode(weight, height), "shake");
     }
 
-    std::shared_ptr<sf::RenderWindow> getwindow(){return window;}
+    sf::RenderWindow* getwindow(){return window;}
     int gettimedelay(){return timedelay;}
     void settimedelay(int td){if(td>=0){timedelay=td;}else{timedelay=0;}}
 
     ~Game(){
+        delete window;
     }
 };
 
@@ -193,15 +194,15 @@ public:
     {1,1,1,0,0,0,0},
     }
     };
-    struct c {
+
+    struct xy {
     int x,y;
     };
 
-    boost::numeric::ublas::vector<c>shaketail;
+    std::vector<xy>shaketail;
 
     void shakedie(){shakecounter--;}
     void setxy(int sx,int sy){x=sx; y=sy;}
-
 
     bool getdivision(){return division;}
     bool getlive(){return live;}
@@ -225,37 +226,29 @@ public:
         }
     }
 
-    void divisionsuccess(World *world,Shake &shake,Game *game){
-        if (game->evolution){
-            for (int i=0;i<8;i++){
-                for (int j=0;j<7;j++){
-                    for (int k=0;k<7;k++){
-                        shake.weight[i][j][k]=weight[i][j][k];
-                    }
+    void makeevolution(Shake &shake){
+        for (int i=0;i<8;i++){
+            for (int j=0;j<7;j++){
+                for (int k=0;k<7;k++){
+                    shake.weight[i][j][k]=weight[i][j][k];
                 }
             }
-            for (int i=0;i<mutationk;i++){
-                shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
-            }
         }
-        /*for (int j=0;j<7;j++){
-            for (int k=0;k<7;k++){
-            cout<<setw(4)<<shake.weight[0][j][k]<<' ';
-            }
-            cout<<endl;
+        for (int i=0;i<mutationk;i++){
+            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
         }
-        cout<<endl;*/
+    }
+
+    void divisionsuccess(World *world,Shake &shake,Game *game){
         int j=3;
         shake.lastx=shaketail[shakesize-3].x;
         shake.lasty=shaketail[shakesize-3].y;
         for (int i=shakesize-7;i<shakesize-2;i++){
-            std::clog<<"y= "<<shaketail[i].y<<" x= "<<shaketail[i].x<<std::endl;
-            //world->setmap(shaketail[i].y,shaketail[i].x,' ');
             if (j!=-1){
                 shake.shaketail[j].x=shaketail[i].x;
                 shake.shaketail[j].y=shaketail[i].y;
             }
-            j--;    //work in progress
+            j--;
         }
         shakesize-=5;
         division=0;
@@ -270,7 +263,6 @@ public:
 
     void delltail(World *world){
         world->setmap(ylasttail,xlasttail,' ');
-        //world->setmap(shaketail[shaketail.size()-2].y,shaketail[shaketail.size()-2].x,' ');     //bug
         shaketail.resize(shaketail.size()-1);
         shakesize--;
     }
@@ -283,26 +275,29 @@ public:
                         switch (world->getmap(y-3+i,x-3+j)){
                             case 'f':
                             case 'd':
+
                                 up+=weight[0][i][j];
                                 right+=weight[1][i][j];
                                 down+=weight[2][i][j];
                                 left+=weight[3][i][j];
 
-                                break;
+                            break;
                             case '0':
                             case 's':
+
                                 up-=weight[4][i][j];
                                 right-=weight[5][i][j];
                                 down-=weight[6][i][j];
                                 left-=weight[7][i][j];
-                                break;
+
+                            break;
                         }
                     }
                 }
             }
         }
 
-        std::clog<<std::setw(3)<<shakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
+        std::clog<<" shake id= "<<std::setw(3)<<shakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
         std::clog<<"\tsaturarion = "<<saturation<<std::endl;
 
         if (up>=down&&up>=left&&up>=right){y-=1;}else{
@@ -324,12 +319,6 @@ public:
                 world->setmap(y,x,'s');
                 break;
         }
-
-        /*if(live==false&&shakesize>4){
-            if(world->getmap(y-1,x)==' '||world->getmap(y+1,x)==' '||world->getmap(y,x-1)==' '||world->getmap(y,x+1)==' '){
-                int error123=1;
-            }
-        }*/
 
         up=0;down=0;left=0;right=0;
 
@@ -363,7 +352,11 @@ public:
             live=0;
         }
 
-        if (hungryi>5){hungryi=0;saturation--;}else{hungryi++;}
+        if (hungryi>5){
+            hungryi=0;
+            saturation--;
+        }
+        else{ hungryi++; }
 
         if (shakesize>9){
             division=1;
@@ -408,14 +401,16 @@ class Shakescntrl{
                 shakes[0].randomallweight(game->randommode,game->randomx);
         }
         else{
-            for (int i=0;i<shakes[0].getshakecounter();i++){
+            for (auto i=0;i<shakes.size();i++){
                 if (shakes[i].getlive()){
                     shakes[i].update(world);
 
                     if (shakes[i].getdivision()){
-                        shakes.resize(shakes[0].getshakecounter()+1);
+                        shakes.resize(shakes.size()+1);
                         shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
                         shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
+                        if(game->evolution)
+                            shakes[i].makeevolution(shakes[shakes.size()-1]);
                         shakes[i].divisionsuccess(world,shakes[shakes.size()-1],game);
                     }
                 }
@@ -423,7 +418,7 @@ class Shakescntrl{
                         shakes[i].fillshake(world,'d');
                         //shakes[i].~Shake();
                         shakes.erase(shakes.begin()+i);
-                        shakes[0].shakedie();// decrease shakecounter
+                        //shakes[0].shakedie();// decrease shakecounter
                         i--;
                 }
             }
@@ -435,6 +430,47 @@ class Shakescntrl{
 
 int Shake::shakecounter=0;
 
+
+class Button {
+public:
+    sf::Vector2f bPosition;    //pos on screen
+    sf::IntRect bSprite;    //cord on texture
+    sf::Sprite sprite;
+    void (*func) (Game *game);
+    //std::function<void()> onClick;
+    //std::function<void()> onRelease;
+    //bool hasOnClick = false;
+    //bool hasOnRelease = false;
+
+    Button(sf::Texture &texture, sf::Vector2f sbPosition, sf::IntRect sbSprite,void (*sfunc)(Game *game)) {
+        func=sfunc;
+        sprite.setTexture(texture);
+        bPosition = sbPosition;
+        bSprite = sbSprite;
+        sprite.setTextureRect(bSprite);     //cut texture
+        sprite.setPosition(bPosition);      //pos on screen
+    }
+};
+
+std::vector<Button> buttons;
+sf::Texture texturebuttons;
+
+
+void downtimedelay(Game *game){
+    game->settimedelay(game->gettimedelay()-5);
+}
+
+void uptimedelay(Game *game){
+    game->settimedelay(game->gettimedelay()+5);
+}
+
+void setupbuttons(){
+    texturebuttons.loadFromFile("img/buttons.png");
+    Button t(texturebuttons,sf::Vector2f(Size+Size2,hmap*(Size+Size2)),sf::IntRect(0,0,64,64),downtimedelay);
+    buttons.push_back(t);
+    t=Button(texturebuttons,sf::Vector2f(2 * (Size+Size2) + 64 , hmap * (Size+Size2) ),sf::IntRect(64,0,64,64),uptimedelay);
+    buttons.push_back(t);
+}
 
 int main(){
 
@@ -450,9 +486,11 @@ int main(){
 
     Shakescntrl shakescntrl(&game);
 
-    render rendershake;
+    Render render;
 
     srand(time(NULL));
+
+    setupbuttons();
 
 	while (game.getwindow()->isOpen()){
 
@@ -461,11 +499,14 @@ int main(){
 		{
 			if (event.type == sf::Event::Closed)
 				game.getwindow()->close();
-            if (event.mouseButton.button == sf::Mouse::Left&&event.mouseButton.x<3000&&event.mouseButton.x>10&&event.mouseButton.y<3000&&event.mouseButton.y>10){
-                game.settimedelay(game.gettimedelay()+5);
+            if (event.mouseButton.button == sf::Mouse::Button::Left){
+                sf::Vector2i pos =  sf::Mouse::getPosition(*(game.getwindow()));
+                for (auto i=0;i<buttons.size();i++){
+                    if (buttons[i].sprite.getGlobalBounds().contains(pos.x, pos.y)){
+                        buttons[i].func(&game);
+                    }
+                }
             }
-            if (event.mouseButton.button == sf::Mouse::Button::Right)
-                game.settimedelay(game.gettimedelay()-5);
 		}
 
         std::clog<<std::endl<<std::endl;
@@ -474,10 +515,20 @@ int main(){
 
         world.update();
 
-        rendershake.gorender(game.getwindow(), &world, hmap, wmap, Size, Size2);
+        sf::RenderWindow* window=game.getwindow();
+        window->clear();
+
+        render.gorender(game.getwindow(), &world, hmap, wmap, Size, Size2);
+
+        for(int i=0;i<buttons.size();i++){
+            window->draw(buttons[i].sprite);
+        }
+
+        window->display();
 
 		Sleep(game.gettimedelay());
 	}
+	game.~Game();
 	return 0;
 }
 

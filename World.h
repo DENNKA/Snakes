@@ -14,6 +14,8 @@ class World {
 
     void mapsetup();
 
+    private:
+
     char Map[hmap][wmap];
 
 };

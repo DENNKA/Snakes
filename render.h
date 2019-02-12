@@ -5,9 +5,9 @@
 #include <memory>
 #include "World.h"
 
-    class render{
+    class Render{
         public:
-            void gorender (std::shared_ptr<sf::RenderWindow> window,World* world,int hmap,int wmap,int Size1,int Size2);
+            void gorender (sf::RenderWindow* window,World* world,int hmap,int wmap,int Size1,int Size2);
         private:
     };
 

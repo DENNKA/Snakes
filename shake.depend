@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1549552837 source:d:\denis\code\shake\main.cpp
+1549907886 source:d:\denis\code\shake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>
@@ -529,7 +529,7 @@
 
 1549127661 d:\denis\code\shake\balance.h
 
-1549553638 d:\denis\code\shake\render.h
+1549975943 d:\denis\code\shake\render.h
 	<SFML/Graphics.hpp>
 	<memory>
 	"World.h"
@@ -539,7 +539,7 @@
 
 1538891232 source:d:\denis\code\shake\balance.h
 
-1549029696 source:d:\denis\code\shake\render.cpp
+1549975943 source:d:\denis\code\shake\render.cpp
 	"render.h"
 	<string>
 
@@ -548,8 +548,8 @@
 
 1545491284 d:\denis\code\shake\balance
 
-1549553638 d:\denis\code\shake\world.h
+1549904493 d:\denis\code\shake\world.h
 
-1549546586 source:d:\denis\code\shake\world.cpp
+1549903243 source:d:\denis\code\shake\world.cpp
 	"render.h"
 

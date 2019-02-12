@@ -55,9 +55,6 @@
 		<Unit filename="World.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="balance.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="render.cpp" />
 		<Unit filename="render.h">

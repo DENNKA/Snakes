@@ -3,8 +3,9 @@
 
 using namespace sf;
 
-        void render::gorender (std::shared_ptr<RenderWindow> window,World* world,int hmap,int wmap,int Size,int Size2){
-            window->clear();
+        void Render::gorender (RenderWindow* window,World* world,int hmap,int wmap,int Size,int Size2){
+
+
             RectangleShape rectangle(Vector2f(Size, Size));
 
             for (int i = 0; i < hmap; i++){
@@ -22,5 +23,5 @@ using namespace sf;
                 }
             }
 
-            window->display();
+
         }
