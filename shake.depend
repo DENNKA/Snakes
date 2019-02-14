@@ -1,18 +1,14 @@
 # depslib dependency file v1.0
-1549907886 source:d:\denis\code\shake\main.cpp
+1550163969 source:d:\denis\code\shake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>
-	<vector>
-	<fstream>
-	<string>
-	<cmath>
 	<time.h>
-	<string>
-	<iomanip>
-	<boost/numeric/ublas/vector.hpp>
 	"World.h"
 	"render.h"
+	"Game.h"
+	"Shakescntrl.h"
+	"Buttonscntrl.h"
 
 1525812018 d:\denis\code\ext\sfml-2.5.0\include\sfml\audio.hpp
 	<SFML/System.hpp>
@@ -529,7 +525,7 @@
 
 1549127661 d:\denis\code\shake\balance.h
 
-1549975943 d:\denis\code\shake\render.h
+1550079119 d:\denis\code\shake\render.h
 	<SFML/Graphics.hpp>
 	<memory>
 	"World.h"
@@ -539,7 +535,7 @@
 
 1538891232 source:d:\denis\code\shake\balance.h
 
-1549975943 source:d:\denis\code\shake\render.cpp
+1550079119 source:d:\denis\code\shake\render.cpp
 	"render.h"
 	<string>
 
@@ -548,8 +544,45 @@
 
 1545491284 d:\denis\code\shake\balance
 
-1549904493 d:\denis\code\shake\world.h
+1550079878 d:\denis\code\shake\world.h
 
 1549903243 source:d:\denis\code\shake\world.cpp
 	"render.h"
+
+1550072092 source:d:\denis\code\shake\game.cpp
+	"Game.h"
+
+1550078701 d:\denis\code\shake\game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1550050694 source:d:\denis\code\shake\button.cpp
+	"Button.h"
+
+1550080870 d:\denis\code\shake\button.h
+	"Game.h"
+
+1550078701 d:\denis\code\shake\shakescntrl.h
+	"Game.h"
+	"World.h"
+	"Shake.h"
+
+1550074147 d:\denis\code\shake\shake.h
+	<vector>
+	<iomanip>
+	<iostream>
+	"World.h"
+
+1550163128 source:d:\denis\code\shake\shakescntrl.cpp
+	"shakescntrl.h"
+
+1550079914 source:d:\denis\code\shake\shake.cpp
+	"Shake.h"
+
+1550081300 d:\denis\code\shake\buttonscntrl.h
+	<vector>
+	"Button.h"
+
+1550158027 source:d:\denis\code\shake\buttonscntrl.cpp
+	"Buttonscntrl.h"
 

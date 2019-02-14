@@ -1,10 +1,11 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-const int hmap=40,wmap=60; //size map
+
 
 class World {
-    public:
+public:
+    static const int hmap=40,wmap=60; //size map
 
     void update();
 
@@ -14,7 +15,7 @@ class World {
 
     void mapsetup();
 
-    private:
+private:
 
     char Map[hmap][wmap];
 

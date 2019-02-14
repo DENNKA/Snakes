@@ -7,8 +7,9 @@
 
     class Render{
         public:
-            void gorender (sf::RenderWindow* window,World* world,int hmap,int wmap,int Size1,int Size2);
-        private:
+            const int Size=15,Size2=1; //size squares
+
+            void gorender (sf::RenderWindow* window,World* world,int hmap,int wmap);
     };
 
 #endif // RENDER_H_INCLUDED

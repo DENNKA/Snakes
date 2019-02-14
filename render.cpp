@@ -3,8 +3,7 @@
 
 using namespace sf;
 
-        void Render::gorender (RenderWindow* window,World* world,int hmap,int wmap,int Size,int Size2){
-
+        void Render::gorender (RenderWindow* window,World* world,int hmap,int wmap){
 
             RectangleShape rectangle(Vector2f(Size, Size));
 
@@ -22,6 +21,4 @@ using namespace sf;
                 window->draw(rectangle);
                 }
             }
-
-
         }

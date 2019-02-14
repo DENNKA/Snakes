@@ -51,6 +51,26 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Buttonscntrl.cpp" />
+		<Unit filename="Buttonscntrl.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Shake.cpp" />
+		<Unit filename="Shake.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Shakescntrl.cpp" />
+		<Unit filename="Shakescntrl.h">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="World.cpp" />
 		<Unit filename="World.h">
 			<Option target="&lt;{~None~}&gt;" />
