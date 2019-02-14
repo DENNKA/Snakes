@@ -22,12 +22,12 @@
         if(game->evolution){game->evolution=0;}else{game->evolution=1;}
     }
 
-    void invertrandommode(Game *game){
-        if(game->randommode){game->randommode=0;}else{game->randommode=1;}
-    }
-
     void invertrandominbegin(Game *game){
         if(game->randominbegin){game->randominbegin=0;}else{game->randominbegin=1;}
+    }
+
+    void invertrandommode(Game *game){
+        if(game->randommode){game->randommode=0;}else{game->randommode=1;}
     }
 
     void Buttonscntrl::setupbuttons(int Size,int Size2, int hmap, int wmap){

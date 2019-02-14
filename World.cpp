@@ -1,10 +1,30 @@
 #include "render.h"
 
-    void World::update(){
-        int y =1 + rand() % (hmap-2);
-        int x =1 + rand() % (wmap-2);
-        if (Map[y][x]==' ')
-            Map[y][x]='f';
+    void World::setrandom(int k/*=1*/){
+        if (k==5) return;
+        if (Map[1 + rand() % (hmap-2)][1 + rand() % (wmap-2)]==' '){
+            Map[1 + rand() % (hmap-2)][1 + rand() % (wmap-2)]='f';
+        }
+        else{
+            setrandom(++k);
+        }
+    }
+
+
+    void World::update(int n/*=1*/){
+        if (n==0) return;
+        if (n>0){
+            for (int i=0;i<n;i++){
+                setrandom();
+            }
+        }
+        else{
+            foodi++;    //need test
+            if (foodi>n*-1){
+                setrandom();
+                foodi=1;
+            }
+        }
     }
 
     void World::setmap(int y,int x,char symbol){

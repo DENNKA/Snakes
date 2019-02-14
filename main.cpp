@@ -64,7 +64,7 @@ int main(){
 
         if(game.simulation){
             shakescntrl.update(&world,&game);
-            world.update();
+            world.update(game.foodpertick);
         }
 
         window->clear();

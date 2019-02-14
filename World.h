@@ -7,7 +7,7 @@ class World {
 public:
     static const int hmap=40,wmap=60; //size map
 
-    void update();
+    void update(int n=1);
 
     void setmap(int y,int x,char symbol);
 
@@ -16,6 +16,10 @@ public:
     void mapsetup();
 
 private:
+
+    void setrandom(int k=1);
+
+    int foodi=0;
 
     char Map[hmap][wmap];
 

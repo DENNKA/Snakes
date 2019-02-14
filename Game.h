@@ -20,6 +20,7 @@ public:
     bool restart=0;
     bool randommode=0;
     int randomx=0;
+    int foodpertick=1;
 
     Game(int td=0);
 
