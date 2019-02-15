@@ -19,7 +19,7 @@ public:
     bool randominbegin=0;
     bool restart=0;
     bool randommode=0;
-    int randomx=0;
+    int randomx=3;
     int foodpertick=1;
 
     Game(int td=0);

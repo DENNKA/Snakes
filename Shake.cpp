@@ -131,19 +131,18 @@
 
         up=0;down=0;left=0;right=0;
 
-        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');//bug there
+        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
 
         for (int i=(shakesize-2);i>0;i--){
             shaketail[i].y=shaketail[i-1].y;
             shaketail[i].x=shaketail[i-1].x;
             std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
-            world->setmap(shaketail[i].y,shaketail[i].x,'s');
+            //world->setmap(shaketail[i].y,shaketail[i].x,'s');     //need test
         }
 
         shaketail[0].y=lasty;
         shaketail[0].x=lastx;
         world->setmap(shaketail[0].y,shaketail[0].x,'s');
-        //world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
         xlasttail=shaketail[shakesize-2].x;ylasttail=shaketail[shakesize-2].y;
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
 

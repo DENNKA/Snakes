@@ -1,9 +1,12 @@
-#include "render.h"
+#include "World.h"
+
 
     void World::setrandom(int k/*=1*/){
         if (k==5) return;
-        if (Map[1 + rand() % (hmap-2)][1 + rand() % (wmap-2)]==' '){
-            Map[1 + rand() % (hmap-2)][1 + rand() % (wmap-2)]='f';
+        int y=1 + rand() % (hmap-2);
+        int x=1 + rand() % (wmap-2);
+        if (Map[y][x]==' '){
+            Map[y][x]='f';
         }
         else{
             setrandom(++k);

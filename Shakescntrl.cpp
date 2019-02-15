@@ -4,17 +4,21 @@
 
     Shakescntrl::Shakescntrl(Game *game){
     shakes.resize(1);
-    if (game->randominbegin)
-        shakes[0].randomallweight(game->randommode,10);
+    if (game->randominbegin&&game->evolution)
+        shakes[0].randomallweight(game->randommode,game->randomx);
     }
 
-    void Shakescntrl::update(World *world,Game *game){
+    void Shakescntrl::killall(){shakes.resize(0);}
+
+    void Shakescntrl::resizeshakes(int n){shakes.resize(n);}
+
+    void Shakescntrl::update(World *world,Game *game,vector<sf::Text>& texts){
         std::clog<<std::endl<<std::endl;
         std::clog<<"shakes size= "<<shakes.size();
         if (shakes.size()==0&&game->restart){
-            cout<<"Restart! # "<<++counterrestarts<<endl;
+            texts[9].setString(to_string(++counterrestarts));
             shakes.resize(1);
-            if (game->randominbegin)
+            if (game->randominbegin&game->evolution)
                 shakes[0].randomallweight(game->randommode,game->randomx);
         }
         else{

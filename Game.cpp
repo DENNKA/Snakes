@@ -5,7 +5,8 @@
     }
 
     void Game::setup(){
-        int log=0;
+        std::clog.setstate(std::ios_base::failbit);
+        /*int log=0;
         std::cout<<"Log in console? ";
         std::cin>>log;
 
@@ -16,9 +17,9 @@
         int timedelay;
         std::cout<<"Enter time delay. (during program work use left mouse button to increase time delay, right to decrease)  ";
         std::cin>>timedelay;
-        settimedelay(timedelay);
+        settimedelay(timedelay);*/
 
-        cout<<"If all snakes die restart game? (recommended 1) ";
+        /*cout<<"If all snakes die restart game? (recommended 1) ";
         cin>>restart;
 
         cout<<"On evolution? ";
@@ -36,7 +37,7 @@
                 cout<<"How hard randome? ";
                 cin>>randomx;
             }
-        }
+        }*/
     }
 
     int Game::gettimedelay(){return timedelay;}

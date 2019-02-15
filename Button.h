@@ -6,13 +6,15 @@
 class Button {
 public:
 
-    void (*func) (Game *game);
-
     void switchcolor();
 
-    Button(sf::Texture &texture, sf::Vector2f sbPosition, sf::IntRect sbSprite,void (*sfunc)(Game *game),bool sswitchable=0);
+    void invertvisible();
+
+    Button(sf::Texture &texture, sf::Vector2f sbPosition, sf::IntRect sbSprite,bool sswitchable=0);
 
     sf::Sprite sprite;
+
+    bool visible=1;
 
 private:
 

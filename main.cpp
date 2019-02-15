@@ -10,7 +10,7 @@
 
 
 #include "World.h"
-#include "render.h"
+#include "Render.h"
 #include "Game.h"
 #include "Shakescntrl.h"
 #include "Buttonscntrl.h"
@@ -39,6 +39,8 @@ int main(){
 
     buttonscntrl.setupbuttons(render.Size, render.Size2, world.hmap, world.wmap);
 
+    buttonscntrl.setuptexts(render.Size, render.Size2, world.hmap, world.wmap);
+
     srand(time(NULL));
 
 	while (window->isOpen()){
@@ -54,8 +56,7 @@ int main(){
                     sf::Vector2i pos =  sf::Mouse::getPosition(*window);
                     for (auto i=0;i<(int)buttonscntrl.buttons.size();i++){
                         if (buttonscntrl.buttons[i].sprite.getGlobalBounds().contains(pos.x, pos.y)){
-                            buttonscntrl.buttons[i].func(&game);
-                            buttonscntrl.buttons[i].switchcolor();
+                            buttonscntrl.update(i,&game,&shakescntrl,&world);
                         }
                     }
                 }
@@ -63,17 +64,15 @@ int main(){
 		}
 
         if(game.simulation){
-            shakescntrl.update(&world,&game);
+            shakescntrl.update(&world,&game,buttonscntrl.texts);
             world.update(game.foodpertick);
         }
 
         window->clear();
 
-        render.gorender(window, &world, world.hmap, world.wmap);
+        render.render(window, &world, world.hmap, world.wmap);
 
-        for(int i=0;i<(int)buttonscntrl.buttons.size();i++){
-            window->draw(buttonscntrl.buttons[i].sprite);
-        }
+        render.renderbuttonsandtexts(window,&buttonscntrl);
 
         window->display();
 

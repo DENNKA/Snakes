@@ -63,6 +63,10 @@
 		<Unit filename="Game.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Render.cpp" />
+		<Unit filename="Render.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Shake.cpp" />
 		<Unit filename="Shake.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -76,10 +80,6 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
-		<Unit filename="render.cpp" />
-		<Unit filename="render.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
