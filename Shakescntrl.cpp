@@ -17,6 +17,7 @@
         std::clog<<"shakes size= "<<shakes.size();
         if (shakes.size()==0&&game->restart){
             texts[9].setString(to_string(++counterrestarts));
+            world->mapsetup();
             shakes.resize(1);
             if (game->randominbegin&game->evolution)
                 shakes[0].randomallweight(game->randommode,game->randomx);
@@ -28,11 +29,11 @@
 
                     if (shakes[i].getdivision()){
                         shakes.resize(shakes.size()+1);
-                        shakes[shakes.size()-1].x=shakes[i].shaketail[shakes[i].getshakesize()-3].x;
-                        shakes[shakes.size()-1].y=shakes[i].shaketail[shakes[i].getshakesize()-3].y;
+                        shakes[i].setupcordsindevision(shakes[shakes.size()-1]);
+                        shakes[i].copyweight(shakes[shakes.size()-1]);
                         if(game->evolution)
                             shakes[i].makeevolution(shakes[shakes.size()-1]);
-                        shakes[i].divisionsuccess(shakes[shakes.size()-1]);
+                        shakes[i].divisionsuccess();
                     }
                 }
                 else{

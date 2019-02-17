@@ -102,12 +102,10 @@ public:
     struct xy {
     int x,y;
     };
-
     std::vector<xy>shaketail;
 
     void shakedie();
     void setxy(int sx,int sy);
-
     bool getdivision();
     bool getlive();
     int getshakesize();
@@ -116,13 +114,12 @@ public:
     int getshaketaily(int i);
 
     void randomallweight(int mode,int x);
-
+    void setupcordsindevision(Shake &shake);
+    void copyweight(Shake &shake);
     void makeevolution(Shake &shake);
-
-    void divisionsuccess(Shake &shake);
+    void divisionsuccess();
 
     void addtail();
-
     void delltail();
 
     void update(World *world);

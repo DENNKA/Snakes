@@ -20,25 +20,19 @@ using namespace std;
 
 
 int main(){
-
     Game game;
-
     game.setup();
 
     World world;
-
     world.mapsetup();
 
     Shakescntrl shakescntrl(&game);
 
     Render render;
-
     sf::RenderWindow *window=new sf::RenderWindow(sf::VideoMode(1000, 710), "shake");
 
     Buttonscntrl buttonscntrl;
-
     buttonscntrl.setupbuttons(render.Size, render.Size2, world.hmap, world.wmap);
-
     buttonscntrl.setuptexts(render.Size, render.Size2, world.hmap, world.wmap);
 
     srand(time(NULL));
@@ -69,11 +63,8 @@ int main(){
         }
 
         window->clear();
-
         render.render(window, &world, world.hmap, world.wmap);
-
         render.renderbuttonsandtexts(window,&buttonscntrl);
-
         window->display();
 
 		Sleep(game.gettimedelay());

@@ -90,8 +90,6 @@
         texts[10].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + hmap * (Size+Size2)));
         texts.push_back(sf::Text("0",font,Size3));
         texts[11].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + 33 +hmap * (Size+Size2)));
-        texts.push_back(sf::Text("toradora trash",font,Size3));
-        texts[12].setPosition(sf::Vector2f(35 + Size+Size2 , 22 + 33 +hmap * (Size+Size2)));
     }
 
     void Buttonscntrl::setupbuttons(int Size,int Size2, int hmap, int wmap){

@@ -18,19 +18,13 @@ public:
     void update(int &i,Game *game,Shakescntrl *shakescntrl,World *world);
 
     /*void downtimedelay(Game *game);
-
     void uptimedelay(Game *game);
-
     void invertsimulation(Game *game);
-
     void invertrestart(Game *game);
-
     void invertevolution(Game *game);
-
     void invertrandommode(Game *game);*/
 
     void setuptexts(int Size,int Size2, int hmap, int wmap, int Size3=20);
-
     void setupbuttons(int Size,int Size2, int hmap, int wmap);
 };
 

@@ -36,23 +36,12 @@
         }
     }
 
-    void Shake::makeevolution(Shake &shake){
-        for (int i=0;i<8;i++){
-            for (int j=0;j<7;j++){
-                for (int k=0;k<7;k++){
-                    shake.weight[i][j][k]=weight[i][j][k];
-                }
-            }
-        }
-        for (int i=0;i<mutationk;i++){
-            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
-        }
-    }
-
-    void Shake::divisionsuccess(Shake &shake){
-        int j=3;
+    void Shake::setupcordsindevision(Shake &shake){
+        shake.x=shaketail[getshakesize()-3].x;
+        shake.y=shaketail[getshakesize()-3].y;
         shake.lastx=shaketail[shakesize-3].x;
         shake.lasty=shaketail[shakesize-3].y;
+        int j=3;
         for (int i=shakesize-7;i<shakesize-2;i++){
             if (j!=-1){
                 shake.shaketail[j].x=shaketail[i].x;
@@ -60,6 +49,25 @@
             }
             j--;
         }
+    }
+
+    void Shake::copyweight(Shake &shake){
+        for (int i=0;i<8;i++){
+            for (int j=0;j<7;j++){
+                for (int k=0;k<7;k++){
+                    shake.weight[i][j][k]=weight[i][j][k];
+                }
+            }
+        }
+    }
+
+    void Shake::makeevolution(Shake &shake){
+        for (int i=0;i<mutationk;i++){
+            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
+        }
+    }
+
+    void Shake::divisionsuccess(){
         shakesize-=5;
         division=0;
         shaketail.resize(shakesize-1);

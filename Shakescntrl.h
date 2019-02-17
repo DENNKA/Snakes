@@ -8,19 +8,12 @@
 
 class Shakescntrl{
 public:
-
-    void killall();
-
-    void resizeshakes(int n);
-
     Shakescntrl(Game *game);
-
     void update(World *world,Game *game,vector<sf::Text>& texts);
-
+    void killall();
+    void resizeshakes(int n);
 private:
-
     int counterrestarts=0;
-
     std::vector<Shake> shakes;
 };
 
