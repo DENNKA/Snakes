@@ -8,13 +8,9 @@ public:
     Button(sf::Texture &texture, sf::Vector2f sbPosition, sf::IntRect sbSprite,bool sswitchable=0);
     void switchcolor();
     void invertvisible();
-
     sf::Sprite sprite;
     bool visible=1;
 private:
-    sf::Vector2f bPosition;    //pos on screen
-    sf::IntRect bSprite;    //cord on texture
-
     bool switchable;
 };
 

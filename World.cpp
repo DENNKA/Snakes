@@ -22,7 +22,7 @@
             }
         }
         else{
-            foodi++;    //need test
+            foodi++;
             if (foodi>n*-1){
                 setrandom();
                 foodi=1;

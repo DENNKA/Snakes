@@ -3,18 +3,18 @@
 
 #include "Game.h"
 #include "World.h"
-#include "Shake.h"
+#include "Snake.h"
 
 
-class Shakescntrl{
+class Snakescntrl{
 public:
-    Shakescntrl(Game *game);
+    Snakescntrl(Game *game);
     void update(World *world,Game *game,vector<sf::Text>& texts);
     void killall();
-    void resizeshakes(int n);
+    void resizesnakes(int n);
 private:
     int counterrestarts=0;
-    std::vector<Shake> shakes;
+    std::vector<Snake> snakes;
 };
 
 #endif // SHAKESCNTRL_H_INCLUDED

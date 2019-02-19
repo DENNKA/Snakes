@@ -5,7 +5,7 @@
 #include <string>
 
 #include "Button.h"
-#include "Shakescntrl.h"
+#include "Snakescntrl.h"
 
 
 class Buttonscntrl{     //Text and buttons
@@ -15,7 +15,7 @@ public:
     std::vector<Button> buttons;
     sf::Texture texturebuttons;
 
-    void update(int &i,Game *game,Shakescntrl *shakescntrl,World *world);
+    void update(int &i,Game *game,Snakescntrl *snakescntrl,World *world);
 
     /*void downtimedelay(Game *game);
     void uptimedelay(Game *game);

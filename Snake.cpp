@@ -1,27 +1,27 @@
-#include "Shake.h"
+#include "Snake.h"
 
 
-    int Shake::shakecounter=0;
+    int Snake::snakecounter=0;
 
-    Shake::Shake(int sx/*=3*/,int sy/*=3*/){
+    Snake::Snake(int sx/*=3*/,int sy/*=3*/){
         x=sx; y=sy;
-        shakeid=shakecounter;
-        shakecounter++;
-        shaketail.resize(shakesize-1);
+        snakeid=snakecounter;
+        snakecounter++;
+        snaketail.resize(snakesize-1);
     }
 
-    void Shake::shakedie(){shakecounter--;}
+    void Snake::snakedie(){snakecounter--;}
 
-    void Shake::setxy(int sx,int sy){x=sx; y=sy;}
+    void Snake::setxy(int sx,int sy){x=sx; y=sy;}
 
-    bool Shake::getdivision(){return division;}
-    bool Shake::getlive(){return live;}
-    int Shake::getshakesize(){return shakesize;}
-    int Shake::getshakecounter(){return shakecounter;}
-    int Shake::getshaketailx(int i){return shaketail[i].x;}
-    int Shake::getshaketaily(int i){return shaketail[i].y;}
+    bool Snake::getdivision(){return division;}
+    bool Snake::getlive(){return live;}
+    int Snake::getsnakesize(){return snakesize;}
+    int Snake::getsnakecounter(){return snakecounter;}
+    int Snake::getsnaketailx(int i){return snaketail[i].x;}
+    int Snake::getsnaketaily(int i){return snaketail[i].y;}
 
-    void Shake::randomallweight(int mode,int x){
+    void Snake::randomallweight(int mode,int x){
         for (int i=0;i<8;i++){
             for (int j=0;j<7;j++){
                 for (int k=0;k<7;k++){
@@ -36,55 +36,55 @@
         }
     }
 
-    void Shake::setupcordsindevision(Shake &shake){
-        shake.x=shaketail[getshakesize()-3].x;
-        shake.y=shaketail[getshakesize()-3].y;
-        shake.lastx=shaketail[shakesize-3].x;
-        shake.lasty=shaketail[shakesize-3].y;
+    void Snake::setupcordsindevision(Snake &snake){
+        snake.x=snaketail[getsnakesize()-3].x;
+        snake.y=snaketail[getsnakesize()-3].y;
+        snake.lastx=snaketail[snakesize-3].x;
+        snake.lasty=snaketail[snakesize-3].y;
         int j=3;
-        for (int i=shakesize-7;i<shakesize-2;i++){
+        for (int i=snakesize-7;i<snakesize-2;i++){
             if (j!=-1){
-                shake.shaketail[j].x=shaketail[i].x;
-                shake.shaketail[j].y=shaketail[i].y;
+                snake.snaketail[j].x=snaketail[i].x;
+                snake.snaketail[j].y=snaketail[i].y;
             }
             j--;
         }
     }
 
-    void Shake::copyweight(Shake &shake){
+    void Snake::copyweight(Snake &snake){
         for (int i=0;i<8;i++){
             for (int j=0;j<7;j++){
                 for (int k=0;k<7;k++){
-                    shake.weight[i][j][k]=weight[i][j][k];
+                    snake.weight[i][j][k]=weight[i][j][k];
                 }
             }
         }
     }
 
-    void Shake::makeevolution(Shake &shake){
+    void Snake::makeevolution(Snake &snake){
         for (int i=0;i<mutationk;i++){
-            shake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
+            snake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
         }
     }
 
-    void Shake::divisionsuccess(){
-        shakesize-=5;
+    void Snake::divisionsuccess(){
+        snakesize-=5;
         division=0;
-        shaketail.resize(shakesize-1);
+        snaketail.resize(snakesize-1);
     }
 
 
-    void Shake::addtail(){
-        shaketail.resize(shaketail.size()+1);
-        shakesize++;
+    void Snake::addtail(){
+        snaketail.resize(snaketail.size()+1);
+        snakesize++;
     }
 
-    void Shake::delltail(){
-        shaketail.resize(shaketail.size()-1);
-        shakesize--;
+    void Snake::delltail(){
+        snaketail.resize(snaketail.size()-1);
+        snakesize--;
     }
 
-    void Shake::update(World *world){ //x- left x+ right y- up y+ down
+    void Snake::update(World *world){ //x- left x+ right y- up y+ down
         for (int i=0;i<7;i++){
             for (int j=0;j<7;j++){
                 if ((y-3+i)>=0&&(x-3+j)>=0){
@@ -114,7 +114,7 @@
             }
         }
 
-        std::clog<<" shake id= "<<std::setw(3)<<shakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
+        std::clog<<" snake id= "<<std::setw(3)<<snakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
         std::clog<<"\tsaturarion = "<<saturation<<std::endl;
 
         if (up>=down&&up>=left&&up>=right){y-=1;}else{
@@ -122,7 +122,7 @@
                     if (left>=right&&left>=up&&left>=down){x-=1;}else{
                         if (right>=up&&right>=down&&right>=left){x+=1;}}}}
 
-        std::clog<<"y= "<<y<<" x= "<<x<<" shakesize= "<<shakesize<<" shaketail.size= "<<shaketail.size()<<std::endl;
+        std::clog<<"y= "<<y<<" x= "<<x<<" snakesize= "<<snakesize<<" snaketail.size= "<<snaketail.size()<<std::endl;
 
         switch (world->getmap(y,x)){
             case '0':
@@ -139,20 +139,20 @@
 
         up=0;down=0;left=0;right=0;
 
-        world->setmap(shaketail[shakesize-2].y,shaketail[shakesize-2].x,' ');
+        world->setmap(snaketail[snakesize-2].y,snaketail[snakesize-2].x,' ');
 
-        for (int i=(shakesize-2);i>0;i--){
-            shaketail[i].y=shaketail[i-1].y;
-            shaketail[i].x=shaketail[i-1].x;
-            std::clog<<std::setw(7)<<i<<std::setw(4)<<shaketail[i].y<<' '<<shaketail[i].x<<std::endl;
-            //world->setmap(shaketail[i].y,shaketail[i].x,'s');     //need test
+        for (int i=(snakesize-2);i>0;i--){
+            snaketail[i].y=snaketail[i-1].y;
+            snaketail[i].x=snaketail[i-1].x;
+            std::clog<<std::setw(7)<<i<<std::setw(4)<<snaketail[i].y<<' '<<snaketail[i].x<<std::endl;
+            //world->setmap(snaketail[i].y,snaketail[i].x,'s');     //need test
         }
 
-        shaketail[0].y=lasty;
-        shaketail[0].x=lastx;
-        world->setmap(shaketail[0].y,shaketail[0].x,'s');
-        xlasttail=shaketail[shakesize-2].x;ylasttail=shaketail[shakesize-2].y;
-        std::clog<<std::setw(7)<<'0'<<std::setw(4)<<shaketail[0].y<<' '<<shaketail[0].x<<std::endl;
+        snaketail[0].y=lasty;
+        snaketail[0].x=lastx;
+        world->setmap(snaketail[0].y,snaketail[0].x,'s');
+        xlasttail=snaketail[snakesize-2].x;ylasttail=snaketail[snakesize-2].y;
+        std::clog<<std::setw(7)<<'0'<<std::setw(4)<<snaketail[0].y<<' '<<snaketail[0].x<<std::endl;
 
         if (saturation>12){
             saturation-=10;
@@ -165,7 +165,7 @@
             delltail();
         }
 
-        if (shakesize<4){
+        if (snakesize<4){
             live=0;
         }
 
@@ -175,7 +175,7 @@
         }
         else{ hungryi++; }
 
-        if (shakesize>9){
+        if (snakesize>9){
             division=1;
         }
 
@@ -185,10 +185,10 @@
 
     }
 
-    void Shake::fillshake(World *world,char symbol){
+    void Snake::fillsnake(World *world,char symbol){
         world->setmap(y,x,symbol);
-        for (auto i=0;i<shakesize-1;i++){
-            world->setmap(shaketail[i].y,shaketail[i].x,symbol);
+        for (auto i=0;i<snakesize-1;i++){
+            world->setmap(snaketail[i].y,snaketail[i].x,symbol);
         }
     }
 

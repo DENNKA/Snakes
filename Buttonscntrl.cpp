@@ -35,7 +35,7 @@
         invert(game->randommode);
     }
 
-    void Buttonscntrl::update(int &i,Game *game,Shakescntrl *shakescntrl,World *world){
+    void Buttonscntrl::update(int &i,Game *game,Snakescntrl *snakescntrl,World *world){
         if (buttons[i].visible){
             buttons[i].switchcolor();
 
@@ -58,7 +58,7 @@
                 case 8: game->randomx--; texts[5].setString(to_string(game->randomx)); break;
                 case 9: game->foodpertick++; texts[7].setString(to_string(game->foodpertick)); break;
                 case 10: game->foodpertick--; texts[7].setString(to_string(game->foodpertick)); break;
-                case 11: shakescntrl->killall(); world->mapsetup(); break;
+                case 11: snakescntrl->killall(); world->mapsetup(); break;
                 default: cerr<<"Error: button not found!"<<endl;
             }
         }

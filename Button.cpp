@@ -15,12 +15,10 @@
         }
     }
 
-    Button::Button(sf::Texture &texture, sf::Vector2f sbPosition, sf::IntRect sbSprite,bool sswitchable/*=0*/) {
+    Button::Button(sf::Texture &texture, sf::Vector2f sPosition, sf::IntRect sSprite,bool sswitchable/*=0*/) {
         switchable=sswitchable;
         sprite.setTexture(texture);
-        bPosition = sbPosition;
-        bSprite = sbSprite;
-        sprite.setTextureRect(bSprite);     //cut texture
-        sprite.setPosition(bPosition);      //pos on screen
+        sprite.setTextureRect(sSprite);     //cut texture
+        sprite.setPosition(sPosition);      //pos on screen
         sprite.setColor(sf::Color(255,255,255));
     }

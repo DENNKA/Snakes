@@ -2,21 +2,25 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="shake" />
+		<Option title="Snake" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/shake" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/Snake" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add option="-DSFML_STATIC" />
 					<Add directory="../ext/SFML-2.5.0/include" />
 				</Compiler>
 				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
 					<Add library="sfml-system-d" />
 					<Add library="sfml-window-d" />
 					<Add library="sfml-graphics-d" />
@@ -67,12 +71,12 @@
 		<Unit filename="Render.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Shake.cpp" />
-		<Unit filename="Shake.h">
+		<Unit filename="Snake.cpp" />
+		<Unit filename="Snake.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Shakescntrl.cpp" />
-		<Unit filename="Shakescntrl.h">
+		<Unit filename="Snakescntrl.cpp" />
+		<Unit filename="Snakescntrl.h">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="World.cpp" />
