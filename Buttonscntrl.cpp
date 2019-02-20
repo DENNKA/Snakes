@@ -3,11 +3,19 @@
 
 
     void downtimedelay(Game *game){
-        game->settimedelay(game->gettimedelay()-10);
+        switch (game->gettimedelay()){
+        case 10: game->settimedelay(1); break;
+        case 1: game->settimedelay(0); break;
+        default:game->settimedelay(game->gettimedelay()-10); break;
+        }
     }
 
     void uptimedelay(Game *game){
-        game->settimedelay(game->gettimedelay()+10);
+        switch (game->gettimedelay()){
+        case 0: game->settimedelay(1); break;
+        case 1: game->settimedelay(10); break;
+        default:game->settimedelay(game->gettimedelay()+10); break;
+        }
     }
 
     template <typename T>
@@ -88,7 +96,7 @@
         texts[9].setPosition(sf::Vector2f(35 + 8 * (Size+Size2) + 32 + 11*64 ,5 + 33 + hmap * (Size+Size2)));
         texts.push_back(sf::Text("delay (ms)",font,Size3));
         texts[10].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + hmap * (Size+Size2)));
-        texts.push_back(sf::Text("0",font,Size3));
+        texts.push_back(sf::Text("10",font,Size3));
         texts[11].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + 33 +hmap * (Size+Size2)));
     }
 

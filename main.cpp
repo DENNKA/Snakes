@@ -26,7 +26,7 @@ using namespace std;
 
 
 int main(){
-    Game game;
+    Game game(10);
     game.setup();
 
     World world;

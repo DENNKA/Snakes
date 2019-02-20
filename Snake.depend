@@ -619,11 +619,11 @@
 1550421818 d:\denis\code\snake\button.h
 	"Game.h"
 
-1550406759 d:\denis\code\snake\game.h
+1550644151 d:\denis\code\snake\game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1550576125 source:d:\denis\code\snake\buttonscntrl.cpp
+1550644097 source:d:\denis\code\snake\buttonscntrl.cpp
 	"Buttonscntrl.h"
 
 1550576128 d:\denis\code\snake\buttonscntrl.h
@@ -649,7 +649,7 @@
 1550406759 source:d:\denis\code\snake\game.cpp
 	"Game.h"
 
-1550581142 source:d:\denis\code\snake\main.cpp
+1550643917 source:d:\denis\code\snake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>

@@ -22,7 +22,7 @@ public:
     int randomx=3;
     int foodpertick=1;
 
-    Game(int td=0);
+    Game(int td);
 
     void setup();
 
