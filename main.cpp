@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Snakescntrl.h"
 #include "Buttonscntrl.h"
+#include "Defines.h"
 
 
 using namespace std;
@@ -23,6 +24,7 @@ using namespace std;
 #define DEFAULT_HEIGHT 710
 #define DEFAULT_WEIGHT_MAP 60
 #define DEFAULT_HEIGHT_MAP 40
+
 
 
 int main(){
@@ -54,7 +56,30 @@ int main(){
 
     srand(time(NULL));
 
+    #ifdef FPS
+    clock_t clockLastFrame=0;
+    int framesCounter=0;
+    float framesTimeCounter=0;
+    int fps=0;
+    clockLastFrame=clock();
+    #endif // FPS
+
 	while (window->isOpen()){
+        #ifdef FPS
+        clock_t clockNow =clock();
+        clock_t deltaClock = clockNow - clockLastFrame;
+        float deltaTime = float(deltaClock) / CLOCKS_PER_SEC;
+        clockLastFrame=clockNow;
+
+        framesCounter++;
+        framesTimeCounter += deltaTime;
+        if( framesTimeCounter >= 1.0 ){
+            framesTimeCounter -= 1.0;
+            fps = framesCounter;
+            framesCounter = 0;
+        }
+        buttonscntrl.texts[buttonscntrl.texts.size()-1].setString(to_string(fps));
+        #endif // FPS
 
 		sf::Event event;
 		while (window->pollEvent(event)){

@@ -6,6 +6,7 @@
 
 #include "Button.h"
 #include "Snakescntrl.h"
+#include "Defines.h"
 
 
 class Buttonscntrl{     //Text and buttons

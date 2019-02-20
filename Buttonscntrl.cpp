@@ -1,7 +1,6 @@
 #include "Buttonscntrl.h"
 
 
-
     void downtimedelay(Game *game){
         switch (game->gettimedelay()){
         case 10: game->settimedelay(1); break;
@@ -98,6 +97,10 @@
         texts[10].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + hmap * (Size+Size2)));
         texts.push_back(sf::Text("10",font,Size3));
         texts[11].setPosition(sf::Vector2f(35 + Size+Size2 , 5 + 33 +hmap * (Size+Size2)));
+
+        #ifdef FPS
+        texts.push_back(sf::Text("Fps",font,Size3));
+        #endif // FPS
     }
 
     void Buttonscntrl::setupbuttons(int Size,int Size2, int hmap, int wmap){
