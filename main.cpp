@@ -1,3 +1,4 @@
+#define 	SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 #include <iostream>
 #include <SFML/Graphics.hpp>
 //#include <SFML/window.hpp>

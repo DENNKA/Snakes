@@ -37,8 +37,8 @@
     }
 
     void Snake::setupcordsindevision(Snake &snake){
-        snake.x=snaketail[getsnakesize()-3].x;
-        snake.y=snaketail[getsnakesize()-3].y;
+        snake.x=snaketail[snakesize-3].x;
+        snake.y=snaketail[snakesize-3].y;
         snake.lastx=snaketail[snakesize-3].x;
         snake.lasty=snaketail[snakesize-3].y;
         int j=3;
@@ -145,12 +145,11 @@
             snaketail[i].y=snaketail[i-1].y;
             snaketail[i].x=snaketail[i-1].x;
             std::clog<<std::setw(7)<<i<<std::setw(4)<<snaketail[i].y<<' '<<snaketail[i].x<<std::endl;
-            //world->setmap(snaketail[i].y,snaketail[i].x,'s');     //need test
         }
 
         snaketail[0].y=lasty;
         snaketail[0].x=lastx;
-        world->setmap(snaketail[0].y,snaketail[0].x,'s');
+        //world->setmap(snaketail[0].y,snaketail[0].x,'s');
         xlasttail=snaketail[snakesize-2].x;ylasttail=snaketail[snakesize-2].y;
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<snaketail[0].y<<' '<<snaketail[0].x<<std::endl;
 

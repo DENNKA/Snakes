@@ -623,7 +623,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1550646583 source:d:\denis\code\snake\buttonscntrl.cpp
+1550647406 source:d:\denis\code\snake\buttonscntrl.cpp
 	"Buttonscntrl.h"
 
 1550647406 d:\denis\code\snake\buttonscntrl.h
@@ -633,12 +633,12 @@
 	"Snakescntrl.h"
 	"Defines.h"
 
-1550576134 d:\denis\code\snake\snakescntrl.h
+1550771583 d:\denis\code\snake\snakescntrl.h
 	"Game.h"
 	"World.h"
 	"Snake.h"
 
-1550581030 d:\denis\code\snake\world.h
+1550841351 d:\denis\code\snake\world.h
 	<windows.h>
 
 1550576134 d:\denis\code\snake\snake.h
@@ -650,7 +650,7 @@
 1550406759 source:d:\denis\code\snake\game.cpp
 	"Game.h"
 
-1550646430 source:d:\denis\code\snake\main.cpp
+1550841923 source:d:\denis\code\snake\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<windows.h>
@@ -661,20 +661,21 @@
 	"Game.h"
 	"Snakescntrl.h"
 	"Buttonscntrl.h"
+	"Defines.h"
 
-1550228705 d:\denis\code\snake\render.h
+1550841351 d:\denis\code\snake\render.h
 	<SFML/Graphics.hpp>
 	"World.h"
 	"Buttonscntrl.h"
 
-1550229049 source:d:\denis\code\snake\render.cpp
+1550772458 source:d:\denis\code\snake\render.cpp
 	"render.h"
 	<string>
 
-1550576134 source:d:\denis\code\snake\snake.cpp
+1550841351 source:d:\denis\code\snake\snake.cpp
 	"Snake.h"
 
-1550576134 source:d:\denis\code\snake\snakescntrl.cpp
+1550771583 source:d:\denis\code\snake\snakescntrl.cpp
 	"snakescntrl.h"
 
 1550581030 source:d:\denis\code\snake\world.cpp
