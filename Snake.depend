@@ -650,8 +650,9 @@
 1550406759 source:d:\denis\code\snake\game.cpp
 	"Game.h"
 
-1550841923 source:d:\denis\code\snake\main.cpp
+1550993956 source:d:\denis\code\snake\main.cpp
 	<iostream>
+	<SFML/OpenGL.hpp>
 	<SFML/Graphics.hpp>
 	<windows.h>
 	<time.h>
@@ -668,11 +669,11 @@
 	"World.h"
 	"Buttonscntrl.h"
 
-1550772458 source:d:\denis\code\snake\render.cpp
+1550993800 source:d:\denis\code\snake\render.cpp
 	"render.h"
 	<string>
 
-1550841351 source:d:\denis\code\snake\snake.cpp
+1550993800 source:d:\denis\code\snake\snake.cpp
 	"Snake.h"
 
 1550771583 source:d:\denis\code\snake\snakescntrl.cpp
@@ -682,4 +683,19 @@
 	"World.h"
 
 1550647406 d:\denis\code\snake\defines.h
+
+1525812018 d:\denis\code\ext\sfml-2.5.0\include\sfml\opengl.hpp
+	<SFML/Config.hpp>
+	<windows.h>
+	<GL/gl.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<OpenGLES/ES1/gl.h>
+	<OpenGLES/ES1/glext.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2platform.h>
+	<GLES2/gl2ext.h>
 

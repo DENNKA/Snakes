@@ -149,7 +149,6 @@
 
         snaketail[0].y=lasty;
         snaketail[0].x=lastx;
-        //world->setmap(snaketail[0].y,snaketail[0].x,'s');
         xlasttail=snaketail[snakesize-2].x;ylasttail=snaketail[snakesize-2].y;
         std::clog<<std::setw(7)<<'0'<<std::setw(4)<<snaketail[0].y<<' '<<snaketail[0].x<<std::endl;
 

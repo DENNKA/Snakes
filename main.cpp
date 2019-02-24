@@ -1,5 +1,6 @@
 #define 	SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 #include <iostream>
+#include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
 //#include <SFML/window.hpp>
 //#include <SFML/system.hpp>
@@ -29,6 +30,7 @@ using namespace std;
 
 
 int main(){
+    glEnable(GL_TEXTURE_2D);
     Game game(10);
     game.setup();
 
@@ -106,6 +108,29 @@ int main(){
         }
 
         window->clear();
+        glClear(GL_COLOR_BUFFER_BIT );
+
+        glMatrixMode( GL_PROJECTION );
+        glLoadIdentity();
+        glOrtho(0, DEFAULT_WEIGHT, DEFAULT_HEIGHT, 0, 0.1, 10);
+
+        glBegin(GL_QUADS);
+            glTexCoord2f(0,1);
+            glColor3ub(255, 255, 255);
+            glVertex2f(100.0f, 100.0f);
+
+            glTexCoord2f(1,1);
+            glColor3ub(255, 255, 255);
+            glVertex2f(350,100);
+
+            glTexCoord2f(1,0);
+            glColor3ub(255, 255, 255);
+            glVertex2f(350,500);
+
+            glTexCoord2f(0,0);
+            glColor3ub(255, 255, 255);
+            glVertex2f(100,500);
+        glEnd();
         render.render(window, &world, world.hmap, world.wmap);
         render.renderbuttonsandtexts(window,&buttonscntrl);
         window->display();
