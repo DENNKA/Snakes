@@ -6,24 +6,46 @@
 #include <iostream>
 
 #include "World.h"
+#include "Defines.h"
 
-const int mutationx=5, mutationk=5;
 
+const int mutationx=6, mutationk=10;
 
 
 class Snake {
-private:
-
 public:
 
     Snake(int sx=3,int sy=3);
 
+    void snakedie();
+    void setxy(int sx,int sy);
+    int getx();
+    int gety();
+    bool getdivision();
+    bool getlive();
+    int getsnakesize();
+    int getsnakecounter();
+    int getsnaketailx(int i);
+    int getsnaketaily(int i);
+
+    void randomallweight(int mode,int x);
+    void setupcordsindevision(Snake &snake);
+    void copyweight(Snake &snake);
+    void makeevolution(Snake &snake);
+    void divisionsuccess();
+
+    void addtail();
+    void delltail();
+
+    void update(World *world);
+
+    void fillsnake(World *world,char symbol);
+private:
     bool live=1, division=0;
     int static snakecounter;
     int x=0,y=0,up=0,down=0,left=0,right=0,lastx=0,lasty=0,snakeid,snakesize=5,saturation=8;
-    int hungryi=0;
+    int hungryi=0;  //counter
     int xlasttail=0,ylasttail=0;
-
     int weight[8][7][7]={
     {
     {5,5,5,5,5,5,5},
@@ -103,29 +125,6 @@ public:
     int x,y;
     };
     std::vector<xy>snaketail;
-
-    void snakedie();
-    void setxy(int sx,int sy);
-    bool getdivision();
-    bool getlive();
-    int getsnakesize();
-    int getsnakecounter();
-    int getsnaketailx(int i);
-    int getsnaketaily(int i);
-
-    void randomallweight(int mode,int x);
-    void setupcordsindevision(Snake &snake);
-    void copyweight(Snake &snake);
-    void makeevolution(Snake &snake);
-    void divisionsuccess();
-
-    void addtail();
-    void delltail();
-
-    void update(World *world);
-
-    void fillsnake(World *world,char symbol);
-
 };
 
 #endif // SHAKE_H_INCLUDED

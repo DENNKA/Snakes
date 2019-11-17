@@ -8,26 +8,24 @@
 using namespace std;
 
 class Game{
-private:
-
-    int timedelay=0;
-
 public:
+    void setup();
 
     bool simulation=0;
     bool evolution=0;
     bool randominbegin=0;
     bool restart=0;
     bool randommode=0;
-    int randomx=3;
+    bool rendermap=1;
     int foodpertick=1;
 
-    Game(int td);
-
-    void setup();
-
+    int getrandomx();
+    void setrandomx(int rndx);
     int gettimedelay();
     void settimedelay(int td);
+private:
+    int timedelay=10;  //in milliseconds
+    int randomx=3;
 };
 
 #endif // GAME_H_INCLUDED

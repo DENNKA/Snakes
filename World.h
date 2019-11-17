@@ -2,22 +2,25 @@
 #define WORLD_H_INCLUDED
 
 #include <windows.h>
+#include <vector>
 
 
 class World {
 public:
-    static const int hmap=40,wmap=60; //size map
+    int hmap=40,wmap=60; //size map
 
-    void update(int n=1);
     void mapsetup();
+    void update(int n=1);
+
+    void setSize(int _hmap,int _wmap);
 
     void setmap(int y,int x,char symbol);
     char getmap(int y,int x);
 private:
-    void setrandom(int k=1);
-
+    void setrandom();
     int foodi=0;
-    char Map[hmap][wmap];
+    std::vector<std::vector<char>> Map;
+    //char Map[hmap][wmap];
 };
 
 #endif // WORLD_H_INCLUDED

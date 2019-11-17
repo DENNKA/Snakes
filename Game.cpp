@@ -1,11 +1,8 @@
 #include "Game.h"
 
-    Game::Game(int td/*=0*/){
-        timedelay=td;
-    }
 
     void Game::setup(){
-        std::clog.setstate(std::ios_base::failbit);
+        //std::clog.setstate(std::ios_base::failbit);
         /*int log=0;
         std::cout<<"Log in console? ";
         std::cin>>log;
@@ -40,6 +37,16 @@
         }*/
     }
 
+
+    int Game::getrandomx(){return randomx;}
+    void Game::setrandomx(int rndx){
+        if(rndx==0){
+            if(randomx>0){randomx=-1;}else{randomx=1;}
+        }
+        else{
+            randomx=rndx;
+        }
+    }
     int Game::gettimedelay(){return timedelay;}
     void Game::settimedelay(int td){if(td>=0){timedelay=td;}else{timedelay=0;}}
 

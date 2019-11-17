@@ -11,9 +11,9 @@
     }
 
     void Snake::snakedie(){snakecounter--;}
-
     void Snake::setxy(int sx,int sy){x=sx; y=sy;}
-
+    int Snake::getx(){return x;}
+    int Snake::gety(){return y;}
     bool Snake::getdivision(){return division;}
     bool Snake::getlive(){return live;}
     int Snake::getsnakesize(){return snakesize;}
@@ -62,9 +62,15 @@
     }
 
     void Snake::makeevolution(Snake &snake){
-        for (int i=0;i<mutationk;i++){
+        if (rand()%mutationk==0){
             snake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
+            /*for(int i=0;i<7;i++)
+                std::cout<<snake.weight[0][0][i]<<' ';
+            std::cout<<std::endl;*/
         }
+        /*for (int i=0;i<mutationk;i++){
+            snake.weight[rand()%8][rand()%7][rand()%7]+=rand()%mutationx;
+        }*/
     }
 
     void Snake::divisionsuccess(){
@@ -85,6 +91,8 @@
     }
 
     void Snake::update(World *world){ //x- left x+ right y- up y+ down
+        up=0;down=0;left=0;right=0;
+
         for (int i=0;i<7;i++){
             for (int j=0;j<7;j++){
                 if ((y-3+i)>=0&&(x-3+j)>=0){
@@ -114,15 +122,10 @@
             }
         }
 
-        std::clog<<" snake id= "<<std::setw(3)<<snakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
-        std::clog<<"\tsaturarion = "<<saturation<<std::endl;
-
         if (up>=down&&up>=left&&up>=right){y-=1;}else{
                 if (down>=left&&down>=right&&down>=up){y+=1;}else{
                     if (left>=right&&left>=up&&left>=down){x-=1;}else{
                         if (right>=up&&right>=down&&right>=left){x+=1;}}}}
-
-        std::clog<<"y= "<<y<<" x= "<<x<<" snakesize= "<<snakesize<<" snaketail.size= "<<snaketail.size()<<std::endl;
 
         switch (world->getmap(y,x)){
             case '0':
@@ -137,20 +140,17 @@
                 break;
         }
 
-        up=0;down=0;left=0;right=0;
-
         world->setmap(snaketail[snakesize-2].y,snaketail[snakesize-2].x,' ');
 
-        for (int i=(snakesize-2);i>0;i--){
+        for (int i=(snakesize-2);i>0;i--){      //move tail to head
             snaketail[i].y=snaketail[i-1].y;
             snaketail[i].x=snaketail[i-1].x;
-            std::clog<<std::setw(7)<<i<<std::setw(4)<<snaketail[i].y<<' '<<snaketail[i].x<<std::endl;
         }
 
         snaketail[0].y=lasty;
         snaketail[0].x=lastx;
+
         xlasttail=snaketail[snakesize-2].x;ylasttail=snaketail[snakesize-2].y;
-        std::clog<<std::setw(7)<<'0'<<std::setw(4)<<snaketail[0].y<<' '<<snaketail[0].x<<std::endl;
 
         if (saturation>12){
             saturation-=10;
@@ -179,8 +179,15 @@
 
         lastx=x;lasty=y;
 
+        #ifdef CLOG
+        std::clog<<" snake id= "<<std::setw(3)<<snakeid<<std::setw(4)<<up<<std::setw(4)<<down<<std::setw(4)<<left<<std::setw(4)<<right;
+        std::clog<<"\tsaturarion = "<<saturation<<std::endl;
+        std::clog<<"y= "<<y<<" x= "<<x<<" snakesize= "<<snakesize<<" snaketail.size= "<<snaketail.size()<<std::endl;
+        for(int i=0;i<snaketail.size();i++){
+            std::clog<<std::setw(7)<<i<<std::setw(4)<<snaketail[i].y<<' '<<snaketail[i].x<<std::endl;
+        }
         std::clog<<std::endl;
-
+        #endif // CLOG
     }
 
     void Snake::fillsnake(World *world,char symbol){

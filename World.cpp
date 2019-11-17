@@ -1,18 +1,17 @@
 #include "World.h"
 
 
-    void World::setrandom(int k/*=1*/){
-        if (k==5) return;
-        int y=1 + rand() % (hmap-2);
-        int x=1 + rand() % (wmap-2);
-        if (Map[y][x]==' '){
-            Map[y][x]='f';
-        }
-        else{
-            setrandom(++k);
+    void World::setrandom(){
+        static int y,x;
+        for (int i=0;i<5;i++){
+            y=1 + rand() % (hmap-2);
+            x=1 + rand() % (wmap-2);
+            if (Map[y][x]==' '){
+                Map[y][x]='f';
+                i=5;
+            }
         }
     }
-
 
     void World::update(int n/*=1*/){
         if (n==0) return;
@@ -28,6 +27,14 @@
                 foodi=1;
             }
         }
+    }
+
+    void World::setSize(int _hmap,int _wmap){
+        hmap=_hmap;
+        wmap=_wmap;
+        Map.resize(hmap);
+        for(int i=0;i<hmap;i++)
+            Map[i].resize(wmap);
     }
 
     void World::setmap(int y,int x,char symbol){

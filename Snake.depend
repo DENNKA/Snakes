@@ -616,44 +616,47 @@
 1550421818 source:d:\denis\code\snake\button.cpp
 	"Button.h"
 
-1550421818 d:\denis\code\snake\button.h
+1553001516 d:\denis\code\snake\button.h
 	"Game.h"
 
-1550644151 d:\denis\code\snake\game.h
+1555080713 d:\denis\code\snake\game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1550647406 source:d:\denis\code\snake\buttonscntrl.cpp
+1555082510 source:d:\denis\code\snake\buttonscntrl.cpp
 	"Buttonscntrl.h"
 
-1550647406 d:\denis\code\snake\buttonscntrl.h
+1555082510 d:\denis\code\snake\buttonscntrl.h
 	<vector>
 	<string>
 	"Button.h"
 	"Snakescntrl.h"
 	"Defines.h"
 
-1550771583 d:\denis\code\snake\snakescntrl.h
+1555417542 d:\denis\code\snake\snakescntrl.h
 	"Game.h"
 	"World.h"
 	"Snake.h"
+	"Defines.h"
 
-1550841351 d:\denis\code\snake\world.h
+1555078785 d:\denis\code\snake\world.h
 	<windows.h>
+	<vector>
 
-1550576134 d:\denis\code\snake\snake.h
+1555415969 d:\denis\code\snake\snake.h
 	<vector>
 	<iomanip>
 	<iostream>
 	"World.h"
+	"Defines.h"
 
-1550406759 source:d:\denis\code\snake\game.cpp
+1553001359 source:d:\denis\code\snake\game.cpp
 	"Game.h"
 
-1550993956 source:d:\denis\code\snake\main.cpp
+1555608823 source:d:\denis\code\snake\main.cpp
 	<iostream>
-	<SFML/OpenGL.hpp>
 	<SFML/Graphics.hpp>
+	<SFML/OpenGL.hpp>
 	<windows.h>
 	<time.h>
 	<fstream>
@@ -663,26 +666,30 @@
 	"Snakescntrl.h"
 	"Buttonscntrl.h"
 	"Defines.h"
+	<chrono>
 
-1550841351 d:\denis\code\snake\render.h
+1553006267 d:\denis\code\snake\render.h
 	<SFML/Graphics.hpp>
+	<SFML/OpenGL.hpp>
 	"World.h"
 	"Buttonscntrl.h"
+	"Game.h"
+	"Snakescntrl.h"
 
-1550993800 source:d:\denis\code\snake\render.cpp
+1555749801 source:d:\denis\code\snake\render.cpp
 	"render.h"
 	<string>
 
-1550993800 source:d:\denis\code\snake\snake.cpp
+1555422884 source:d:\denis\code\snake\snake.cpp
 	"Snake.h"
 
-1550771583 source:d:\denis\code\snake\snakescntrl.cpp
+1555417653 source:d:\denis\code\snake\snakescntrl.cpp
 	"snakescntrl.h"
 
-1550581030 source:d:\denis\code\snake\world.cpp
+1555078795 source:d:\denis\code\snake\world.cpp
 	"World.h"
 
-1550647406 d:\denis\code\snake\defines.h
+1553002221 d:\denis\code\snake\defines.h
 
 1525812018 d:\denis\code\ext\sfml-2.5.0\include\sfml\opengl.hpp
 	<SFML/Config.hpp>

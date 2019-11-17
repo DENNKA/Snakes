@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "World.h"
 #include "Snake.h"
-
+#include "Defines.h"
 
 class Snakescntrl{
 public:
@@ -12,9 +12,10 @@ public:
     void update(World *world,Game *game,vector<sf::Text>& texts);
     void killall();
     void resizesnakes(int n);
-private:
-    int counterrestarts=0;
     std::vector<Snake> snakes;
+private:
+    int counterupdates=0;
+    int counterrestarts=0;
 };
 
 #endif // SHAKESCNTRL_H_INCLUDED

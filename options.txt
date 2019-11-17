@@ -1,1 +1,8 @@
-1000 710
+1015 720
+63 40
+15 1
+
+ Window width, window height 
+ Map width, map height 
+ Size squares, size indent
+ If you want return default settings then delete file

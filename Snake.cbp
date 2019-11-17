@@ -27,6 +27,8 @@
 					<Add library="sfml-main-d" />
 					<Add library="sfml-audio-d" />
 					<Add library="ogg" />
+					<Add library="openal32" />
+					<Add library="opengl32" />
 					<Add directory="../ext/SFML-2.5.0/lib" />
 				</Linker>
 			</Target>
@@ -55,6 +57,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+		</Linker>
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -63,6 +68,7 @@
 		<Unit filename="Buttonscntrl.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Defines.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h">
 			<Option target="&lt;{~None~}&gt;" />
